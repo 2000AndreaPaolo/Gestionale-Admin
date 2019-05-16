@@ -1,0 +1,64 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+    <h3 class="title">Lista degli esercizzi</h3>
+    <button class="btn btn-success" type="button" id="addEsercizio" (click)="openPopUp(0, esercizzi_add_modify)">Aggiungi esercizio</button>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <td class="center_object">#</td>
+          <td class="center_object">Descrizione</td>
+          <td class="center_object">Grruppo muscolare</td>
+          <td class="center_object">Azioni</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let esercizio of esercizzi | paginate: { itemsPerPage: 20, currentPage: page }">
+          <td class="center_object">{{esercizio.id_esercizio}}</td>
+          <td class="center_object">{{esercizio.descrizione}}</td>
+          <td class="center_object">{{esercizio.gruppoMuscolare}}</td>
+          <td class="center_object">
+              <button #modifica class="btn btn-primary fa fa-edit" value="{{esercizio.id_esercizio}}" (click)="openPopUp(modifica.value, esercizzi_add_modify)"></button>
+              <button #elimina class="btn btn-danger fa fa-trash" value="{{esercizio.id_esercizio}}" (click)="deleteEsercizio(elimina.value)"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>
+
+<ng-template #esercizzi_add_modify let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+          <div *ngIf="id_esercizio == 0; then aggiungi else modifica"></div>
+          <ng-template #aggiungi>Aggiungi esercizio</ng-template>
+          <ng-template #modifica>Modifica esercizio</ng-template>
+      </h4>
+  </div>
+  <div class="modal-body">
+      <form>
+          <div class="form-group">
+              <label for="dateOfBirth">Descrizione</label>
+              <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="descrizione" [ngModelOptions]="{standalone: true}" required>
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Gruppo muscolare</label>
+            <div class="input-group">
+              <select class="form-control" (change)="onChangeGruppoMuscolare($event.target.value)" [value]='id_gruppoMuscolare'>
+                <option value=""></option>
+                <option *ngFor="let gruppoMuscolare of gruppiMuscolari" value="{{gruppoMuscolare.id_gruppoMuscolare}}">{{gruppoMuscolare.descrizione}}</option>
+              </select>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+      <div *ngIf="id_esercizio == 0; then aggiungibtn else modificabtn"></div>
+          <ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addEsercizio()">Aggiungi</button></ng-template>
+          <ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyEsercizio()">Modifica</button></ng-template>
+      </div>
+</ng-template>

@@ -1,0 +1,86 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+  <h3 class="title">Lista delle schede</h3>
+  <button class="btn btn-success" type="button" id="addScheda" (click)="openPopUp(0, scheda_add_modify)">Aggiungi scheda</button>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <td class="center_object">#</td>
+        <td class="center_object">Nome</td>
+        <td class="center_object">Data inizio</td>
+        <td class="center_object">Data Fine</td>
+        <td class="center_object">Atleta</td>
+        <td class="center_object">Azioni</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let scheda of schede | paginate: { itemsPerPage: 20, currentPage: page }">
+        <td class="center_object">{{scheda.id_scheda}}</td>
+        <td class="center_object">{{scheda.nome}}</td>
+        <td class="center_object">{{scheda.data_inizio}}</td>
+        <td class="center_object">{{scheda.data_fine}}</td>
+        <td class="center_object">{{scheda.nome_atleta}} {{scheda.cognome_atleta}}</td>
+        <td class="center_object">
+            <button #modifica class="btn btn-primary fa fa-edit" value="{{scheda.id_scheda}}" (click)="openPopUp(modifica.value, scheda_add_modify)"></button>
+            <button #elimina class="btn btn-danger fa fa-trash" value="{{scheda.id_scheda}}" (click)="deleteScheda(elimina.value)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+
+<ng-template #scheda_add_modify let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+          <div *ngIf="id_scheda == 0; then aggiungi else modifica"></div>
+          <ng-template #aggiungi>Aggiungi scheda</ng-template>
+          <ng-template #modifica>Modifica scheda</ng-template>
+      </h4>
+  </div>
+  <div class="modal-body">
+      <form>
+          <div class="form-group">
+            <label for="dateOfBirth">Nome</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="nome" [ngModelOptions]="{standalone: true}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Data inizio</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="data_inizio" [ngModelOptions]="{standalone: true}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Data fine</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="data_fine" [ngModelOptions]="{standalone: true}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Durata</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="durata" [ngModelOptions]="{standalone: true}" required>
+          	</div>
+		  </div>
+		  <div class="form-group">
+				<label for="dateOfBirth">Atleta</label>
+				<div class="input-group">
+					<select class="form-control" (change)="onChangeGruppoMuscolare($event.target.value)" [value]='id_gruppoMuscolare'>
+						<option value=""></option>
+						<option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+					</select>
+				</div>
+		  </div>
+      </form>
+  </div>
+  	<div class="modal-footer">
+      <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+      <div *ngIf="id_scheda == 0; then aggiungibtn else modificabtn"></div>
+          <ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addScheda()">Aggiungi</button></ng-template>
+          <ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyScheda()">Modifica</button></ng-template>
+	</div>
+</ng-template>
