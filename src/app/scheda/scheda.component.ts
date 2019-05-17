@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import {Router} from "@angular/router"
 
 import { SchedaService } from '../services/scheda.service';
 import { AtletiService } from '../services/atleti.service';
@@ -24,7 +25,7 @@ export class SchedaComponent implements OnInit {
 	durata: number;
 	id_atleta: number;
 
-	constructor(private schedaService: SchedaService, private atletiService: AtletiService, private modalService: NgbModal, private toastr: ToastrService) { }
+	constructor(private schedaService: SchedaService, private atletiService: AtletiService, private modalService: NgbModal, private toastr: ToastrService, private router: Router) { }
 
 	ngOnInit() {
 		this.scheda = new Scheda();
@@ -116,5 +117,9 @@ export class SchedaComponent implements OnInit {
 
 	onChangeIdAtleta(id_atleta:any){
 		this.id_atleta = id_atleta;
+	}
+
+	progressione(id_scheda:number){
+		this.router.navigate(['/progressione', id_scheda]);
 	}
 }

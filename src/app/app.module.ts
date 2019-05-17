@@ -13,6 +13,7 @@ import { AtletiComponent } from './atleti/atleti.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { EserciziComponent } from './esercizi/esercizi.component';
 import { SchedaComponent } from './scheda/scheda.component';
+import { ProgressioneComponent } from './progressione/progressione.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SchedaComponent } from './scheda/scheda.component';
     AtletiComponent,
     MainNavComponent,
     EserciziComponent,
-    SchedaComponent
+    SchedaComponent,
+    ProgressioneComponent
   ],
   imports: [
     BrowserModule,
