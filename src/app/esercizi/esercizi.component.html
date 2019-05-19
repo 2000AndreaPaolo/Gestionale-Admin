@@ -17,8 +17,8 @@
           <td class="center_object">{{esercizio.descrizione}}</td>
           <td class="center_object">{{esercizio.gruppoMuscolare}}</td>
           <td class="center_object">
-              <button #modifica class="btn btn-primary fa fa-edit" value="{{esercizio.id_esercizio}}" (click)="openPopUp(modifica.value, esercizzi_add_modify)"></button>
-              <button #elimina class="btn btn-danger fa fa-trash" value="{{esercizio.id_esercizio}}" (click)="deleteEsercizio(elimina.value)"></button>
+              <button #modifica class="btn btn-primary fa fa-edit" value="{{esercizio.id_esercizio}}" (click)="openPopUp(modifica.value, esercizzi_add_modify)" ngbTooltip="Modifica esercizio"></button>
+              <button #elimina class="btn btn-danger fa fa-trash" value="{{esercizio.id_esercizio}}" (click)="deleteEsercizio(elimina.value)" ngbTooltip="Elimina esercizio"></button>
           </td>
         </tr>
       </tbody>

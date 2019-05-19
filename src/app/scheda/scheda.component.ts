@@ -120,6 +120,10 @@ export class SchedaComponent implements OnInit {
 	}
 
 	progressione(id_scheda:number){
-		this.router.navigate(['/progressione', id_scheda]);
+		for(let scheda of this.schede){
+			if(scheda.id_scheda == id_scheda){
+				this.router.navigate(['/progressione', id_scheda]);
+			}
+		}
 	}
 }

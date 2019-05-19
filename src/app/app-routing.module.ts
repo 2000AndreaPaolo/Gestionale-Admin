@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'atleti', component: AtletiComponent },
   { path: 'esercizzi', component: EserciziComponent },
   { path: 'scheda', component: SchedaComponent },
-  { path: 'progressione/:id_scheda', component: ProgressioneComponent }
+  { path: 'progressione/:id_scheda', component: ProgressioneComponent },
+  { path: '', redirectTo: '/atleti', pathMatch: 'full'},
 ];
 
 @NgModule({

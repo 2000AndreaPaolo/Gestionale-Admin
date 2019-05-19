@@ -1,4 +1,88 @@
 <app-main-nav></app-main-nav>
 <div class="container">
 	<h3 class="title">Progressione della scheda n. {{id_scheda}}</h3>
+	<button class="btn btn-success" type="button" id="addProgressione" (click)="openPopUp(0, progressione_add_modify)">Aggiungi progressione</button>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+		  <tr>
+			<td class="center_object">#</td>
+			<td class="center_object">Giorno</td>
+			<td class="center_object">Esercizio</td>
+			<td class="center_object">Serie</td>
+			<td class="center_object">Ripetizioni</td>
+			<td class="center_object">Note</td>
+			<td class="center_object">Azioni</td>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr *ngFor="let progressione of progressioni | paginate: { itemsPerPage: 20, currentPage: page }">
+			<td class="center_object">{{progressione.id_progressione}}</td>
+			<td class="center_object">{{progressione.giorno}}</td>
+			<td class="center_object">{{progressione.nome_esercizio}}</td>
+			<td class="center_object">{{progressione.serie}}</td>
+			<td class="center_object">{{progressione.ripetizioni}}</td>
+			<td class="center_object">{{progressione.note}}</td>
+			<td class="center_object">
+				<button #modifica class="btn btn-primary fa fa-edit" value="{{progressione.id_progressione}}" (click)="openPopUp(modifica.value, progressione_add_modify)"></button>
+				<button #elimina class="btn btn-danger fa fa-trash" value="{{progressione.id_progressione}}" (click)="deleteProgressione(elimina.value)"></button>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	  <div class="pagination">
+		<pagination-controls (pageChange)="page = $event"></pagination-controls>
+	  </div>
 </div>
+
+<ng-template #progressione_add_modify let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">
+			<div *ngIf="id_progressione == 0; then aggiungi else modifica"></div>
+			<ng-template #aggiungi>Aggiungi progressione</ng-template>
+			<ng-template #modifica>Modifica progressione</ng-template>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="form-group">
+			  <label for="dateOfBirth">Giorno</label>
+			  <div class="input-group">
+				  <input type="number" class="form-control" [(ngModel)]="giorno" [ngModelOptions]="{standalone: true}" required>
+			  </div>
+			</div>
+			<div class="form-group">
+				  <label for="dateOfBirth">Esercizio</label>
+				  <div class="input-group">
+					  <select class="form-control" (change)="onChangeId_esercizio($event.target.value)" [value]='id_esercizio'>
+						  <option value=""></option>
+						  <option *ngFor="let esercizio of esercizzi" value="{{esercizio.id_esercizio}}">{{esercizio.descrizione}}</option>
+					  </select>
+				  </div>
+			</div>
+			<div class="form-group">
+			  <label for="dateOfBirth">Serie</label>
+			  <div class="input-group">
+				  <input type="number" class="form-control" [(ngModel)]="serie" [ngModelOptions]="{standalone: true}" required>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="dateOfBirth">Ripetizioni</label>
+			  <div class="input-group">
+				  <input type="number" class="form-control" [(ngModel)]="ripetizioni" [ngModelOptions]="{standalone: true}" required>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="dateOfBirth">Note</label>
+			  <div class="input-group">
+				  <input type="text" class="form-control" [(ngModel)]="note" [ngModelOptions]="{standalone: true}">
+				</div>
+			</div>
+		</form>
+	</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+		<div *ngIf="id_progressione == 0; then aggiungibtn else modificabtn"></div>
+			<ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addProgressione()">Aggiungi</button></ng-template>
+			<ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyProgressione()">Modifica</button></ng-template>
+	  </div>
+  </ng-template>

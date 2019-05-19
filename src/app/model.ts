@@ -24,3 +24,13 @@ export class Schede{
     data_fine: Date;
     id_atleta: number;
 }
+
+export class Progressioni{
+    id_progressione: number;
+    id_scheda: number;
+    id_esercizio: number;
+    giorno: number;
+    serie: number;
+    ripetizioni: number;
+    note: string;
+}
