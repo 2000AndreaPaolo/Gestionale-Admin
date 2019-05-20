@@ -28,3 +28,11 @@ export class Progressione{
     ripetizioni: number;
     note: string;
 }
+export class Plicometria{
+    id_plicometria: number;
+    id_atleta: number;
+    pettorale: number;
+    addome: number;
+    gamba: number;
+    note: string;
+}

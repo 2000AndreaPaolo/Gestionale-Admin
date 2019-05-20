@@ -5,7 +5,6 @@
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 		  <tr>
-			<td class="center_object">#</td>
 			<td class="center_object">Giorno</td>
 			<td class="center_object">Esercizio</td>
 			<td class="center_object">Serie</td>
@@ -16,7 +15,6 @@
 		</thead>
 		<tbody>
 		  <tr *ngFor="let progressione of progressioni | paginate: { itemsPerPage: 20, currentPage: page }">
-			<td class="center_object">{{progressione.id_progressione}}</td>
 			<td class="center_object">{{progressione.giorno}}</td>
 			<td class="center_object">{{progressione.nome_esercizio}}</td>
 			<td class="center_object">{{progressione.serie}}</td>
@@ -85,4 +83,4 @@
 			<ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addProgressione()">Aggiungi</button></ng-template>
 			<ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyProgressione()">Modifica</button></ng-template>
 	  </div>
-  </ng-template>
+</ng-template>
