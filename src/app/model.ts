@@ -3,6 +3,7 @@ export class Atleti{
     nome: string;
     cognome: string;
     username: string;
+    data_nascita: Date;
 }
 
 export class Esercizzi{
@@ -41,5 +42,6 @@ export class Plicometrie{
     pettorale: number;
     addome: number;
     gamba: number;
+    percentuale: number;
     note: string;
 }

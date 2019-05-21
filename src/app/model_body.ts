@@ -2,6 +2,7 @@ export class Atleta{
     id_atleta: number;
     nome: string;
     cognome: string;
+    data_nascita: Date;
 }
 
 export class Esercizio{
@@ -34,5 +35,6 @@ export class Plicometria{
     pettorale: number;
     addome: number;
     gamba: number;
+    percentuale: number;
     note: string;
 }

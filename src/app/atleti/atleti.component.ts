@@ -18,6 +18,7 @@ export class AtletiComponent implements OnInit {
 
   nome:string  = '';
   cognome:string = '';
+  data_nascita:Date;
 
   constructor(private atletiService:AtletiService, private modalService: NgbModal, private toastr: ToastrService){}
 
@@ -36,12 +37,14 @@ export class AtletiComponent implements OnInit {
         if(atleta.id_atleta == this.id_atleta){
           this.nome = atleta.nome;
           this.cognome = atleta.cognome;
+          this.data_nascita = atleta.data_nascita;
         }
       }
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
     }else{
       this.nome = '';
       this.cognome = '';
+      this.data_nascita = null;
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
     }
   }
@@ -50,7 +53,7 @@ export class AtletiComponent implements OnInit {
     this.atleta.nome = this.nome;
     this.atleta.cognome = this.cognome;
     this.id_atleta = this.id_atleta;
-    console.log(this.atleta);
+    this.atleta.data_nascita = this.data_nascita;
     this.atletiService.addAtleta(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
         this.atletiService.loadAtleti();
@@ -68,6 +71,7 @@ export class AtletiComponent implements OnInit {
     this.atleta.nome = this.nome;
     this.atleta.cognome = this.cognome;
     this.atleta.id_atleta = this.id_atleta;
+    this.atleta.data_nascita = this.data_nascita;
     this.atletiService.modifyAtleti(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
         this.atletiService.loadAtleti();
@@ -92,5 +96,4 @@ export class AtletiComponent implements OnInit {
       }
     });
   }
-
 }

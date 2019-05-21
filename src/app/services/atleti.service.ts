@@ -44,5 +44,9 @@ export class AtletiService {
     return this.http.request('delete', environment.apiUrl + `/admin/atleta`, { body: { headers: headers, id_atleta: id_atleta } });
   }
 
-
+  clalcoEta(data_nascita){
+    let timeDiff = Math.abs(Date.now() - data_nascita);
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    return age;
+  }
 }
