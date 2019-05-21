@@ -39,3 +39,20 @@ export class Plicometria{
     data_rilevazione: Date;
     note: string;
 }
+
+export class Programma{
+    id_programma: number;
+    data_inizio: Date;
+    data_fine: Date;
+    note: string;
+};
+
+export class Programmazione{
+    id_progrssione: number;
+    id_programma: number;
+    id_esercizio: number;
+    giorno: number;
+    serie: number;
+    ripetizioni: number;
+    note: string;
+};
