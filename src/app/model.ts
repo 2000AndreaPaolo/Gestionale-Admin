@@ -43,5 +43,6 @@ export class Plicometrie{
     addome: number;
     gamba: number;
     percentuale: number;
+    data_rilevazione: Date;
     note: string;
 }

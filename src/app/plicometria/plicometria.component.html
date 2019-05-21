@@ -1,0 +1,98 @@
+<app-main-nav></app-main-nav>
+<div class="container">
+    <h3 class="title">Lista degli esercizzi</h3>
+    <button class="btn btn-success" type="button" id="addPlicometria" (click)="openPopUp(0, plicometris_add_modify)">Aggiungi plicometria</button>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td class="center_object">#</td>
+          <td class="center_object">Atleta</td>
+          <td class="center_object">Pettorale</td>
+          <td class="center_object">Addome</td>
+          <td class="center_object">Gamba</td>
+          <td class="center_object">Percentuale</td>
+          <td class="center_object">Data rilevazione</td>
+          <td class="center_object">Note</td>
+          <td class="center_object">Azioni</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plicometria of plicometrie | paginate: { itemsPerPage: 20, currentPage: page }">
+            <td class="center_object">{{plicometria.id_plicometria}}</td>
+            <td class="center_object">{{plicometria.nome_atleta}} {{plicometria.cognome_atleta}}</td>
+            <td class="center_object">{{plicometria.pettorale}}</td>
+            <td class="center_object">{{plicometria.addome}}</td>
+            <td class="center_object">{{plicometria.gamba}}</td>
+            <td class="center_object">{{plicometria.percentuale}}%</td>
+            <td class="center_object">{{plicometria.data_rilevazione}}</td>
+            <td class="center_object">{{plicometria.note}}</td>
+            <td class="center_object">
+                <button #modifica class="btn btn-primary fa fa-edit" value="{{plicometria.id_plicometria}}" ngbTooltip="Modifica plicometria" (click)="openPopUp(plicometria.id_plicometria, plicometris_add_modify)"></button>
+                <button #elimina class="btn btn-danger fa fa-trash" value="{{plicometria.id_plicometria}}" ngbTooltip="Elimina plicometria" (click)="deletePlicometria(plicometria.id_plicometria)"></button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+</div>
+
+<ng-template #plicometris_add_modify let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            <div *ngIf="id_plicometria == 0; then aggiungi else modifica"></div>
+            <ng-template #aggiungi>Aggiungi plicometria</ng-template>
+            <ng-template #modifica>Modifica plicometria</ng-template>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="dateOfBirth">Atleta</label>
+                <div class="input-group">
+                  <select class="form-control" (change)="onChangeIdAtleta($event.target.value)" [value]='id_atleta'>
+                    <option value=""></option>
+                    <option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="dateOfBirth">Data rilevazione</label>
+                    <div class="input-group">
+                              <input type="date" class="form-control" [(ngModel)]="data_rilevazione" [ngModelOptions]="{standalone: true}" required>
+                    </div>
+                  </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Pettorale</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" [(ngModel)]="pettorale" [ngModelOptions]="{standalone: true}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Addome</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" [(ngModel)]="addome" [ngModelOptions]="{standalone: true}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Gamba</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" [(ngModel)]="gamba" [ngModelOptions]="{standalone: true}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Note</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+        <div *ngIf="id_plicometria == 0; then aggiungibtn else modificabtn"></div>
+            <ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addPlicometria()">Aggiungi</button></ng-template>
+            <ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyPlicometria()">Modifica</button></ng-template>
+        </div>
+  </ng-template>
