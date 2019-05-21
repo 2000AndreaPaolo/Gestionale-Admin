@@ -15,6 +15,8 @@ import { EserciziComponent } from './esercizi/esercizi.component';
 import { SchedaComponent } from './scheda/scheda.component';
 import { ProgressioneComponent } from './progressione/progressione.component';
 import { PlicometriaComponent } from './plicometria/plicometria.component';
+import { ProgrammaComponent } from './programma/programma.component';
+import { ProgrammazioneComponent } from './programmazione/programmazione.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PlicometriaComponent } from './plicometria/plicometria.component';
     EserciziComponent,
     SchedaComponent,
     ProgressioneComponent,
-    PlicometriaComponent
+    PlicometriaComponent,
+    ProgrammaComponent,
+    ProgrammazioneComponent
   ],
   imports: [
     BrowserModule,
