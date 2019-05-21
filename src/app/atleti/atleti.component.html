@@ -21,6 +21,7 @@
                 <td class="center_object">{{atleta.data_nascita}}</td>
                 <td class="center_object">{{atleta.username}}</td>
                 <td class="center_object">
+                    <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza pliche" (click)="viewPliche(visualizza.value, view_pliche)"></button>
                     <button #modifica class="btn btn-primary fa fa-edit" (click)="openPopUp(modifica.value, atleti_add_modify)" value="{{atleta.id_atleta}}" ngbTooltip="Modifica atleta"></button>
                     <button #elimina class="btn btn-danger fa fa-trash" (click)="deleteAtelta(elimina.value)" value="{{atleta.id_atleta}}" ngbTooltip="Elimina atleta"></button>
                 </td>
@@ -65,4 +66,37 @@
             <ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addAtleta()">Aggiungi</button></ng-template>
             <ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyAtleta()">Modifica</button></ng-template>
         </div>
+</ng-template>
+
+<ng-template #view_pliche let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Lista delle plicometrie effettuate
+        </h4>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="center_object">Pettorale</th>
+                    <th class="center_object">Addome</th>
+                    <th class="center_object">Gamba</th>
+                    <th class="center_object">Percentuale</th>
+                    <th class="center_object">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let plicometria of plicometrie">
+                    <td class="center_object">{{plicometria.pettorale}}</td>
+                    <td class="center_object">{{plicometria.addome}}</td>
+                    <td class="center_object">{{plicometria.gamba}}</td>
+                    <td class="center_object">{{plicometria.percentuale}}%</td>
+                    <td class="center_object">{{plicometria.data_rilevazione}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Chiudi</button>
+    </div>
 </ng-template>

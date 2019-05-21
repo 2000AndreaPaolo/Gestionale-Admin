@@ -3,7 +3,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { AtletiService } from '../services/atleti.service';
-import { Atleti } from '../model';
+import { PlicometriaService } from '../services/plicometria.service';
+import { Atleti, Plicometrie } from '../model';
 import { Atleta } from '../model_body';
 @Component({
   selector: 'app-atleti',
@@ -14,13 +15,14 @@ export class AtletiComponent implements OnInit {
 
   atleti:Atleti[];
   atleta:Atleta;
+  plicometrie:Plicometrie[];
   id_atleta:number = null;
 
   nome:string  = '';
   cognome:string = '';
   data_nascita:Date;
 
-  constructor(private atletiService:AtletiService, private modalService: NgbModal, private toastr: ToastrService){}
+  constructor(private atletiService:AtletiService, private modalService: NgbModal, private toastr: ToastrService, private plicometriaService:PlicometriaService){}
 
   ngOnInit(){
     this.atleta = new Atleta();
@@ -28,6 +30,10 @@ export class AtletiComponent implements OnInit {
       this.atleti = data;
     });
     this.atletiService.loadAtleti();
+    this.plicometriaService.getPlicometrie().subscribe((data:Plicometrie[]) => {
+      this.plicometrie = data;
+    });
+    this.plicometriaService.loadPlicometrie();
   }
 
   openPopUp(id_atleta:number, conten:any){
@@ -95,5 +101,16 @@ export class AtletiComponent implements OnInit {
         this.toastr.error('Atleta non eliminato', 'Errore');
       }
     });
+  }
+
+  viewPliche(id_atleta:number, conten){
+    let appoggio:Plicometrie[] = [];
+    for(let plicometria of this.plicometrie){
+      if(plicometria.id_atleta == id_atleta){
+        appoggio.push(plicometria);
+      }
+    }
+    this.plicometrie = appoggio;
+    this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
   }
 }
