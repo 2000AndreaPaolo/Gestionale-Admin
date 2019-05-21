@@ -21,7 +21,7 @@
                 <td class="center_object">{{atleta.data_nascita}}</td>
                 <td class="center_object">{{atleta.username}}</td>
                 <td class="center_object">
-                    <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza pliche" (click)="viewPliche(visualizza.value, view_pliche)"></button>
+                    <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza pliche" (click)="view(visualizza.value, view_atleta)"></button>
                     <button #modifica class="btn btn-primary fa fa-edit" (click)="openPopUp(modifica.value, atleti_add_modify)" value="{{atleta.id_atleta}}" ngbTooltip="Modifica atleta"></button>
                     <button #elimina class="btn btn-danger fa fa-trash" (click)="deleteAtelta(elimina.value)" value="{{atleta.id_atleta}}" ngbTooltip="Elimina atleta"></button>
                 </td>
@@ -68,33 +68,61 @@
         </div>
 </ng-template>
 
-<ng-template #view_pliche let-modal>
+<ng-template #view_atleta let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">
-            Lista delle plicometrie effettuate
+            Info atleta
         </h4>
     </div>
     <div class="modal-body">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th class="center_object">Pettorale</th>
-                    <th class="center_object">Addome</th>
-                    <th class="center_object">Gamba</th>
-                    <th class="center_object">Percentuale</th>
-                    <th class="center_object">Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let plicometria of plicometrie">
-                    <td class="center_object">{{plicometria.pettorale}}</td>
-                    <td class="center_object">{{plicometria.addome}}</td>
-                    <td class="center_object">{{plicometria.gamba}}</td>
-                    <td class="center_object">{{plicometria.percentuale}}%</td>
-                    <td class="center_object">{{plicometria.data_rilevazione}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="separazione">
+            <h3 class="title">Lista delle scheda</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="center_object">Nome</th>
+                        <th class="center_object">Data inizio</th>
+                        <th class="center_object">Data fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let scheda of schede | paginate: { itemsPerPage: 5, currentPage: pageSchede }">
+                        <td class="center_object">{{scheda.nome}}</td>
+                        <td class="center_object">{{scheda.data_inizio}}</td>
+                        <td class="center_object">{{scheda.data_fine}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                    <pagination-controls (pageChange)="pageSchede = $event"></pagination-controls>
+            </div>
+        </div>
+        <div class="separazione">
+            <h3 class="title_popup">Lista delle plicometrie</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="center_object">Pettorale</th>
+                        <th class="center_object">Addome</th>
+                        <th class="center_object">Gamba</th>
+                        <th class="center_object">Percentuale</th>
+                        <th class="center_object">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let plicometria of plicometrie | paginate: { itemsPerPage: 5, currentPage: pagePliche }">
+                        <td class="center_object">{{plicometria.pettorale}}</td>
+                        <td class="center_object">{{plicometria.addome}}</td>
+                        <td class="center_object">{{plicometria.gamba}}</td>
+                        <td class="center_object">{{plicometria.percentuale}}%</td>
+                        <td class="center_object">{{plicometria.data_rilevazione}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                    <pagination-controls (pageChange)="pagePliche = $event"></pagination-controls>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Chiudi</button>
