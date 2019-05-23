@@ -9,18 +9,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" routerLink="/atleti">Atleti</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAtleti" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Atleti
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownAtleti">
+            <a class="dropdown-item" routerLink="/atleti">Atleti</a>
+            <a class="dropdown-item" routerLink="/plicometria">Plicometrie</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSchede" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Schede
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownSchede">
+            <a class="dropdown-item" routerLink="/programma">Powerlifting</a>
+            <a class="dropdown-item" routerLink="/scheda">Bodybuilding</a>
+          </div>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" routerLink="/esercizzi">Esercizi</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['active']">
-            <a class="nav-link" routerLink="/scheda">Schede bodybuilding</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['active']">
-              <a class="nav-link" routerLink="/plicometria">Plicometrie</a>
-          </li>
+        </li>
       </ul>
     </div>
   </div>

@@ -5,12 +5,16 @@ import { EserciziComponent } from './esercizi/esercizi.component';
 import { SchedaComponent } from './scheda/scheda.component';
 import { ProgressioneComponent } from './progressione/progressione.component';
 import { PlicometriaComponent } from './plicometria/plicometria.component';
+import { ProgrammaComponent } from './programma/programma.component';
+import { ProgrammazioneComponent } from './programmazione/programmazione.component';
 
 const routes: Routes = [
   { path: 'atleti', component: AtletiComponent },
   { path: 'esercizzi', component: EserciziComponent },
   { path: 'scheda', component: SchedaComponent },
   { path: 'progressione/:id_scheda', component: ProgressioneComponent },
+  { path: 'programma', component: ProgrammaComponent },
+  { path: 'programmazione/:id_programma', component: ProgrammazioneComponent },
   { path: 'plicometria', component: PlicometriaComponent },
   { path: '', redirectTo: '/atleti', pathMatch: 'full'},
 ];
