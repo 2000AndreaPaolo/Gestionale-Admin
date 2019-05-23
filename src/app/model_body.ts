@@ -49,7 +49,7 @@ export class Programma{
 };
 
 export class Programmazione{
-    id_progrssione: number;
+    id_programmazione: number;
     id_programma: number;
     id_esercizio: number;
     giorno: number;

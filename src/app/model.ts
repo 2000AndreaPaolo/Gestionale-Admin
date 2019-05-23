@@ -56,7 +56,7 @@ export class Programmi{
 };
 
 export class Programmazioni{
-    id_progrssione: number;
+    id_programmazione: number;
     id_programma: number;
     id_esercizio: number;
     giorno: number;

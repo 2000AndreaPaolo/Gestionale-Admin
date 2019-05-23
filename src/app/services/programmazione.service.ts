@@ -37,7 +37,7 @@ export class ProgrammazioneService {
     return this.http.put(environment.apiUrl + `/admin/programmazione`, JSON.stringify(programmazione), { headers: headers });
   }
 
-  deleteProgrammazione(id_programmazione: Programmazione){
+  deleteProgrammazione(id_programmazione: number){
     let headers  = new HttpHeaders({});
     return this.http.request('delete', environment.apiUrl + `/admin/programmazione`, { body: { headers: headers, id_programmazione: id_programmazione } });
   }
