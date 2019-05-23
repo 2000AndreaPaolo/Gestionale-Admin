@@ -1,3 +1,75 @@
-<p>
-  programma works!
-</p>
+<app-main-nav></app-main-nav>
+<div class="container">
+	<h3 class="title">Lista dei programmi</h3>
+	<button type="button" class="btn btn-success" id="addProgramma" (click)="openPopup(0, programma_add_modify)">Aggiungi programma</button>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th class="center_object">Atleta</th>
+				<th class="center_object">Data inizio</th>
+				<th class="center_object">Data fine</th>
+				<th class="center_object">Note</th>
+				<th class="center_object">Azioni</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let programma of programmi">
+				<td class="center_object">{{programma.nome_atleta}} {{programma.cognome_atleta}}</td>
+				<td class="center_object">{{programma.data_inizio}}</td>
+				<td class="center_object">{{programma.data_fine}}</td>
+				<td class="center_object">{{programma.note}}</td>
+				<td class="center_object">
+					<button #view class="btn btn-info fa fa-eye" value="{{programma.id_programma}}" (click)="programmazione(view.value)" ngbTooltip="Visualizza la programmazione"></button>
+					<button #modifica type="button" class="btn btn-primary fa fa-edit" ngbTooltip="Modifica programma" value="{{programma.id_programma}}" (click)="openPopup(modifica.value, programma_add_modify)"></button>
+					<button #elimina type="button" class="btn btn-danger fa fa-trash" ngbTooltip="Elimina programma" value="{{programma.id_programma}}" (click)="deleteProgramma(elimina.value)"></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<ng-template #programma_add_modify let-modal>
+	<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">
+				<div *ngIf="id_programma == 0; then aggiungi else modifica"></div>
+				<ng-template #aggiungi>Aggiungi scheda</ng-template>
+				<ng-template #modifica>Modifica scheda</ng-template>
+			</h4>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="form-group">
+				<label>Atleta</label>
+				<div class="input-group">
+					<select class="form-control" (change)="onChangeIdAtleta($event.target.value)" [value]='id_atleta'>
+						<option value=""></option>
+						<option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Data inizio</label>
+				<div class="input-group">
+					<input type="date" class="form-control" [(ngModel)]="data_inizio" [ngModelOptions]="{standalone: true}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Data fine</label>
+				<div class="input-group">
+					<input type="date" class="form-control" [(ngModel)]="data_fine" [ngModelOptions]="{standalone: true}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Note</label>
+				<div class="input-group">
+					<input type="text" class="form-control" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" required>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+			<button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+			<div *ngIf="id_programma == 0; then aggiungibtn else modificabtn"></div>
+			<ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addProgramma()">Aggiungi</button></ng-template>
+			<ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyProgramma()">Modifica</button></ng-template>
+	</div>
+</ng-template>

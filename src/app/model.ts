@@ -49,6 +49,7 @@ export class Plicometrie{
 
 export class Programmi{
     id_programma: number;
+    id_atleta: number;
     data_inizio: Date;
     data_fine: Date;
     note: string;
@@ -60,6 +61,7 @@ export class Programmazioni{
     id_esercizio: number;
     giorno: number;
     serie: number;
+    carico: number;
     ripetizioni: number;
     note: string;
 };
