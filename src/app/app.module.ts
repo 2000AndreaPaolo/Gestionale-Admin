@@ -17,6 +17,9 @@ import { ProgressioneComponent } from './progressione/progressione.component';
 import { PlicometriaComponent } from './plicometria/plicometria.component';
 import { ProgrammaComponent } from './programma/programma.component';
 import { ProgrammazioneComponent } from './programmazione/programmazione.component';
+import { PesoComponent } from './peso/peso.component';
+import { NoteComponent } from './note/note.component';
+import { PrestazioneComponent } from './prestazione/prestazione.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { ProgrammazioneComponent } from './programmazione/programmazione.compone
     ProgressioneComponent,
     PlicometriaComponent,
     ProgrammaComponent,
-    ProgrammazioneComponent
+    ProgrammazioneComponent,
+    PesoComponent,
+    NoteComponent,
+    PrestazioneComponent
   ],
   imports: [
     BrowserModule,
