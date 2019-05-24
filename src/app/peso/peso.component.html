@@ -21,8 +21,8 @@
         <td class="center_object">{{peso.data}}</td>
         <td class="center_object">{{peso.note}}</td>
         <td class="center_object">
-	          <button #modifica class="btn btn-primary fa fa-edit" value="{{peso.id_peso}}" ngbTooltip="Modifica nota" (click)="openPopUp(modifica.value, peso_add_modify)"></button>
-            <button #elimina class="btn btn-danger fa fa-trash" value="{{peso.id_peso}}" ngbTooltip="Elimina nota" (click)="deleteNote(elimina.value)"></button>
+	          <button #modifica class="btn btn-primary fa fa-edit" value="{{peso.id_peso}}" ngbTooltip="Modifica peso" (click)="openPopUp(modifica.value, peso_add_modify)"></button>
+            <button #elimina class="btn btn-danger fa fa-trash" value="{{peso.id_peso}}" ngbTooltip="Elimina peso" (click)="deleteNote(elimina.value)"></button>
         </td>
       </tr>
     </tbody>

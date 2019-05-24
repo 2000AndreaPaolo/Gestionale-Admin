@@ -19,7 +19,7 @@
         <td class="center_object">{{nota.data}}</td>
         <td class="center_object">{{nota.note}}</td>
         <td class="center_object">
-			<button #modifica class="btn btn-primary fa fa-edit" value="{{nota.id_note}}" ngbTooltip="Modifica nota" (click)="openPopUp(modifica.value, note_add_modify)"></button>
+			      <button #modifica class="btn btn-primary fa fa-edit" value="{{nota.id_note}}" ngbTooltip="Modifica nota" (click)="openPopUp(modifica.value, note_add_modify)"></button>
             <button #elimina class="btn btn-danger fa fa-trash" value="{{nota.id_note}}" ngbTooltip="Elimina nota" (click)="deleteNote(elimina.value)"></button>
         </td>
       </tr>
