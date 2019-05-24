@@ -1,0 +1,21 @@
+.btn{
+    margin: 2.5px;
+}
+
+.center_object{
+    text-align: center;
+}
+
+.title{
+    margin:15px;
+    text-align: center;
+}
+
+#addNote{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.pagination{
+    float: right;
+}

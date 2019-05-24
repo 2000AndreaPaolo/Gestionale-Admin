@@ -1,1 +1,66 @@
 <app-main-nav></app-main-nav>
+<div class="container">
+  <h3 class="title">Lista delle note</h3>
+  <button class="btn btn-success" type="button" id="addNote" (click)="openPopUp(0, note_add_modify)">Aggiungi nota</button>
+  <table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+      <tr>
+        <th class="center_object">#</th>
+        <th class="center_object">Atleta</th>
+        <th class="center_object">Data</th>
+        <th class="center_object">Note</th>
+        <th class="center_object">Azioni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nota of note | paginate: { itemsPerPage: 20, currentPage: page }">
+        <td class="center_object">{{nota.id_note}}</td>
+        <td class="center_object">{{nota.nome_atleta}} {{nota.cognome_atleta}}</td>
+        <td class="center_object">{{nota.data}}</td>
+        <td class="center_object">{{nota.note}}</td>
+        <td class="center_object">
+			<button #modifica class="btn btn-primary fa fa-edit" value="{{nota.id_note}}" ngbTooltip="Modifica nota" (click)="openPopUp(modifica.value, note_add_modify)"></button>
+            <button #elimina class="btn btn-danger fa fa-trash" value="{{nota.id_note}}" ngbTooltip="Elimina nota" (click)="deleteNote(elimina.value)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
+
+<ng-template #note_add_modify let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+          <div *ngIf="id_note == 0; then aggiungi else modifica"></div>
+          <ng-template #aggiungi>Aggiungi nota</ng-template>
+          <ng-template #modifica>Modifica nota</ng-template>
+      </h4>
+  </div>
+  <div class="modal-body">
+      <form>
+		  <div class="form-group">
+            <label>Atleta</label>
+            <div class="input-group">
+                <select class="form-control" (change)="onChangeIdAtleta($event.target.value)" [value]='id_atleta'>
+                    <option value=""></option>
+                    <option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+                </select>
+            </div>
+		  </div>
+          <div class="form-group">
+            <label>Nota</label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="note_" [ngModelOptions]="{standalone: true}" required>
+            </div>
+          </div>
+    </form>
+  </div>
+  	<div class="modal-footer">
+      <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
+      <div *ngIf="id_note == 0; then aggiungibtn else modificabtn"></div>
+          <ng-template #aggiungibtn><button type="button" class="btn btn-success" (click)="addNote()">Aggiungi</button></ng-template>
+          <ng-template #modificabtn><button type="button" class="btn btn-success" (click)="modifyNote()">Modifica</button></ng-template>
+	</div>
+</ng-template>

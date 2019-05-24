@@ -62,7 +62,7 @@ export class Programmazione{
 export class Prestazione{
     id_prestazione: number;
     id_atleta: number;
-    id_esecizio: number;
+    id_esercizio: number;
     peso: number;
     data: Date;
     note: string;

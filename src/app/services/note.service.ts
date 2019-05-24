@@ -28,12 +28,12 @@ export class NoteService {
     this.http.get<Note[]>(environment.apiUrl + '/admin/note').subscribe(res => this.note.next(res));
   }
 
-  addNote(note: Note){
+  addNote(note: Nota){
     let headers = new HttpHeaders({});
     return this.http.post(environment.apiUrl + `/admin/note`, JSON.stringify(note), { headers: headers });
   }
 
-  modifyNote(note: Note){
+  modifyNote(note: Nota){
     let headers = new HttpHeaders({});
     return this.http.put(environment.apiUrl + `/admin/note`, JSON.stringify(note), { headers: headers });
   }
