@@ -58,3 +58,27 @@ export class Programmazione{
     ripetizioni: number;
     note: string;
 };
+
+export class Prestazione{
+    id_prestazione: number;
+    id_atleta: number;
+    id_esecizio: number;
+    peso: number;
+    data: Date;
+    note: string;
+}
+
+export class Nota{
+    id_note: number;
+    id_atleta: number;
+    data: Date;
+    note: string;
+}
+
+export class Peso{
+    id_peso: number;
+    id_atleta: number;
+    peso: number;
+    data: Date;
+    note: string;
+}
