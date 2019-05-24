@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.auth).subscribe((data: Boolean) => {
       console.log(data);
       if(data){
-        this.router.navigate(['/atleti']);
+        this.router.navigate(['/']);
       }else{
         this.toastr.error('Credenziali non corrette', 'Errore');
       }
