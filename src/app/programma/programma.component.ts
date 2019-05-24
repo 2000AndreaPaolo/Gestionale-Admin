@@ -68,7 +68,6 @@ export class ProgrammaComponent implements OnInit {
     this.programma.data_inizio = this.data_inizio;
     this.programma.data_fine = this.data_fine;
     this.programma.note = this.note;
-    console.log(this.programma);
     this.programmaService.modifyProgramma(this.programma).subscribe((data) => {
       if(data['code'] == 200){
         this.programmaService.loadProgrammi();
