@@ -41,7 +41,13 @@ export class ProgrammazioneComponent implements OnInit {
     });
     this.programmazione = new Programmazione();
     this.programmazioneService.getProgrammazioni().subscribe((data:Programmazioni[]) => {
-      this.programmazioni = data;
+      let appoggio: any[] = [];
+      for(let p of data){
+        if(p.id_programma == this.id_programma){
+          appoggio.push(p);
+        }
+      }
+      this.programmazioni = appoggio;
     });
     this.programmazioneService.loadProgrammazioni();
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
