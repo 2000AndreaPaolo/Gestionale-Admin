@@ -49,7 +49,7 @@
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="dateOfBirth">Atleta</label>
+                <label >Atleta</label>
                 <div class="input-group">
                   <select class="form-control" (change)="onChangeIdAtleta($event.target.value)" [value]='id_atleta'>
                     <option value=""></option>
@@ -58,31 +58,31 @@
                 </div>
             </div>
             <div class="form-group">
-                    <label for="dateOfBirth">Data rilevazione</label>
+                    <label >Data rilevazione</label>
                     <div class="input-group">
                               <input type="date" class="form-control" [(ngModel)]="data_rilevazione" [ngModelOptions]="{standalone: true}" required>
                     </div>
                   </div>
             <div class="form-group">
-                <label for="dateOfBirth">Pettorale</label>
+                <label >Pettorale</label>
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="pettorale" [ngModelOptions]="{standalone: true}" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="dateOfBirth">Addome</label>
+                <label >Addome</label>
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="addome" [ngModelOptions]="{standalone: true}" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="dateOfBirth">Gamba</label>
+                <label >Gamba</label>
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="gamba" [ngModelOptions]="{standalone: true}" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="dateOfBirth">Note</label>
+                <label >Note</label>
                 <div class="input-group">
                     <input type="text" class="form-control" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" required>
                 </div>

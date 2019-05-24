@@ -44,31 +44,31 @@
   <div class="modal-body">
       <form>
           <div class="form-group">
-            <label for="dateOfBirth">Nome</label>
+            <label >Nome</label>
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="nome" [ngModelOptions]="{standalone: true}" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="dateOfBirth">Data inizio</label>
+            <label >Data inizio</label>
             <div class="input-group">
 				<input type="date" class="form-control" [(ngModel)]="data_inizio" [ngModelOptions]="{standalone: true}" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="dateOfBirth">Data fine</label>
+            <label >Data fine</label>
             <div class="input-group">
 				      <input type="date" class="form-control" [(ngModel)]="data_fine" [ngModelOptions]="{standalone: true}" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="dateOfBirth">Durata</label>
+            <label >Durata</label>
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="durata" [ngModelOptions]="{standalone: true}" required>
           	</div>
 		  </div>
 		  <div class="form-group">
-				<label for="dateOfBirth">Atleta</label>
+				<label >Atleta</label>
 				<div class="input-group">
 					<select class="form-control" (change)="onChangeIdAtleta($event.target.value)" [value]='id_atleta'>
 						<option value=""></option>
