@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AtletiComponent } from './atleti/atleti.component';
 import { EserciziComponent } from './esercizi/esercizi.component';
@@ -10,18 +10,21 @@ import { ProgrammazioneComponent } from './programmazione/programmazione.compone
 import { PesoComponent } from './peso/peso.component';
 import { NoteComponent } from './note/note.component';
 import { PrestazioneComponent } from './prestazione/prestazione.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: 'atleti', component: AtletiComponent },
-  { path: 'esercizzi', component: EserciziComponent },
-  { path: 'scheda', component: SchedaComponent },
-  { path: 'progressione/:id_scheda', component: ProgressioneComponent },
-  { path: 'programma', component: ProgrammaComponent },
-  { path: 'programmazione/:id_programma', component: ProgrammazioneComponent },
-  { path: 'plicometria', component: PlicometriaComponent },
-  { path: 'peso', component: PesoComponent },
-  { path: 'prestazione', component: PrestazioneComponent },
-  { path: 'note', component: NoteComponent },
+  { path: 'atleti', component: AtletiComponent, canActivate: [AuthGuard] },
+  { path: 'esercizzi', component: EserciziComponent, canActivate: [AuthGuard] },
+  { path: 'scheda', component: SchedaComponent, canActivate: [AuthGuard] },
+  { path: 'progressione/:id_scheda', component: ProgressioneComponent, canActivate: [AuthGuard] },
+  { path: 'programma', component: ProgrammaComponent, canActivate: [AuthGuard] },
+  { path: 'programmazione/:id_programma', component: ProgrammazioneComponent, canActivate: [AuthGuard] },
+  { path: 'plicometria', component: PlicometriaComponent, canActivate: [AuthGuard] },
+  { path: 'peso', component: PesoComponent, canActivate: [AuthGuard] },
+  { path: 'prestazione', component: PrestazioneComponent, canActivate: [AuthGuard] },
+  { path: 'note', component: NoteComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/atleti', pathMatch: 'full'},
 ];
 

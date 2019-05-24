@@ -25,21 +25,21 @@ export class NoteService {
   }
 
   loadNote(): void {
-    this.http.get<Note[]>(environment.apiUrl + '/admin/note').subscribe(res => this.note.next(res));
+    this.http.get<Note[]>('/admin/note').subscribe(res => this.note.next(res));
   }
 
   addNote(note: Nota){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/note`, JSON.stringify(note), { headers: headers });
+    return this.http.post(`/admin/note`, JSON.stringify(note), { headers: headers });
   }
 
   modifyNote(note: Nota){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/note`, JSON.stringify(note), { headers: headers });
+    return this.http.put(`/admin/note`, JSON.stringify(note), { headers: headers });
   }
 
   deletNote(id_note: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/note`, { body: { headers: headers, id_note: id_note } });
+    return this.http.request('delete', `/admin/note`, { body: { headers: headers, id_note: id_note } });
   }
 }

@@ -1,3 +1,10 @@
+export class AuthUser {
+    id_coach: number;
+    nome: string;
+    cognome:string;
+    token:string;
+}
+
 export class Atleti{
     id_atleta: number;
     nome: string;

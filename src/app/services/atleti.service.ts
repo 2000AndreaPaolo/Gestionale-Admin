@@ -26,22 +26,22 @@ export class AtletiService {
   }
 
   loadAtleti(): void {
-    this.http.get<Atleti[]>(environment.apiUrl + '/admin/atleta').subscribe(res => this.atleti.next(res));
+    this.http.get<Atleti[]>('/admin/atleta').subscribe(res => this.atleti.next(res));
   }
 
   addAtleta(atleta: Atleta){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/atleta`, JSON.stringify(atleta), { headers: headers });
+    return this.http.post('/admin/atleta', JSON.stringify(atleta), { headers: headers });
   }
 
   modifyAtleti(atleta: Atleta){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/atleta`, JSON.stringify(atleta), { headers: headers });
+    return this.http.put('/admin/atleta', JSON.stringify(atleta), { headers: headers });
   }
 
   deleteAtleta(id_atleta: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/atleta`, { body: { headers: headers, id_atleta: id_atleta } });
+    return this.http.request('delete', '/admin/atleta', { body: { headers: headers, id_atleta: id_atleta } });
   }
 
   clalcoEta(data_nascita){

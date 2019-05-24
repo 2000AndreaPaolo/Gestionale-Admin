@@ -24,21 +24,21 @@ export class ProgrammazioneService {
   }
 
   loadProgrammazioni(): void {
-    this.http.get<Programmazioni[]>(environment.apiUrl + '/admin/programmazione').subscribe(res => this.programmazioni.next(res));
+    this.http.get<Programmazioni[]>('/admin/programmazione').subscribe(res => this.programmazioni.next(res));
   }
 
   addProgrammazione(programmazione: Programmazione){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/programmazione`, JSON.stringify(programmazione), { headers: headers });
+    return this.http.post(`/admin/programmazione`, JSON.stringify(programmazione), { headers: headers });
   }
 
   modifyProgrammazione(programmazione: Programmazione){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/programmazione`, JSON.stringify(programmazione), { headers: headers });
+    return this.http.put(`/admin/programmazione`, JSON.stringify(programmazione), { headers: headers });
   }
 
   deleteProgrammazione(id_programmazione: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/programmazione`, { body: { headers: headers, id_programmazione: id_programmazione } });
+    return this.http.request('delete', `/admin/programmazione`, { body: { headers: headers, id_programmazione: id_programmazione } });
   }
 }

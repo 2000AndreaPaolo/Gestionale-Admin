@@ -24,21 +24,21 @@ export class ProgrammaService {
   }
 
   loadProgrammi(): void {
-    this.http.get<Programmi[]>(environment.apiUrl + '/admin/programma').subscribe(res => this.programmi.next(res));
+    this.http.get<Programmi[]>('/admin/programma').subscribe(res => this.programmi.next(res));
   }
 
   addProgramma(Programma: Programma){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/programma`, JSON.stringify(Programma), { headers: headers });
+    return this.http.post(`/admin/programma`, JSON.stringify(Programma), { headers: headers });
   }
 
   modifyProgramma(Programma: Programma){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/programma`, JSON.stringify(Programma), { headers: headers });
+    return this.http.put(`/admin/programma`, JSON.stringify(Programma), { headers: headers });
   }
 
   deleteProgramma(id_Programma: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/programma`, { body: { headers: headers, id_programma: id_Programma } });
+    return this.http.request('delete', `/admin/programma`, { body: { headers: headers, id_programma: id_Programma } });
   }
 }

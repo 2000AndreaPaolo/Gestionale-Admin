@@ -25,21 +25,21 @@ export class SchedaService {
   }
 
   loadSchede(): void {
-    this.http.get<Schede[]>(environment.apiUrl + '/admin/scheda').subscribe(res => this.schede.next(res));
+    this.http.get<Schede[]>('/admin/scheda').subscribe(res => this.schede.next(res));
   }
 
   addScheda(scheda: Scheda){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/scheda`, JSON.stringify(scheda), { headers: headers });
+    return this.http.post(`/admin/scheda`, JSON.stringify(scheda), { headers: headers });
   }
 
   modifyScheda(scheda: Scheda){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/scheda`, JSON.stringify(scheda), { headers: headers });
+    return this.http.put(`/admin/scheda`, JSON.stringify(scheda), { headers: headers });
   }
 
   deleteScheda(id_scheda: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/scheda`, { body: { headers: headers, id_scheda: id_scheda } });
+    return this.http.request('delete', `/admin/scheda`, { body: { headers: headers, id_scheda: id_scheda } });
   }
 }

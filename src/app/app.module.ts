@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { API_URL } from './_shared/injectionTokens';
+import { environment } from '../environments/environment';
+import { ApiUrlInterceptor } from './_helpers/api-url.interceptor';
 
 import { AtletiComponent } from './atleti/atleti.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -20,6 +23,7 @@ import { ProgrammazioneComponent } from './programmazione/programmazione.compone
 import { PesoComponent } from './peso/peso.component';
 import { NoteComponent } from './note/note.component';
 import { PrestazioneComponent } from './prestazione/prestazione.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { PrestazioneComponent } from './prestazione/prestazione.component';
     ProgrammazioneComponent,
     PesoComponent,
     NoteComponent,
-    PrestazioneComponent
+    PrestazioneComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,10 @@ import { PrestazioneComponent } from './prestazione/prestazione.component';
     ToastrModule.forRoot(),
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [
+    { provide: API_URL, useValue: environment.apiUrl },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiUrlInterceptor, multi: true, deps: [API_URL] }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

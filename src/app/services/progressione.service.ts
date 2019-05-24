@@ -25,21 +25,21 @@ export class ProgressioneService {
   }
 
   loadProgressioni(): void {
-    this.http.get<Progressioni[]>(environment.apiUrl + '/admin/progressione').subscribe(res => this.progressioni.next(res));
+    this.http.get<Progressioni[]>('/admin/progressione').subscribe(res => this.progressioni.next(res));
   }
 
   addProgressione(progressione: Progressione){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/progressione`, JSON.stringify(progressione), { headers: headers });
+    return this.http.post(`/admin/progressione`, JSON.stringify(progressione), { headers: headers });
   }
 
   modifyProgressione(progressione: Progressione){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/progressione`, JSON.stringify(progressione), { headers: headers });
+    return this.http.put(`/admin/progressione`, JSON.stringify(progressione), { headers: headers });
   }
 
   deleteProgressione(id_progressione: Progressione){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/progressione`, { body: { headers: headers, id_progressione: id_progressione } });
+    return this.http.request('delete', `/admin/progressione`, { body: { headers: headers, id_progressione: id_progressione } });
   }
 }

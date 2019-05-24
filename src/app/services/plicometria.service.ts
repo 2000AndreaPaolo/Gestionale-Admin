@@ -25,21 +25,21 @@ export class PlicometriaService {
   }
 
   loadPlicometrie(): void {
-    this.http.get<Plicometrie[]>(environment.apiUrl + '/admin/plicometria').subscribe(res => this.plicometrie.next(res));
+    this.http.get<Plicometrie[]>('/admin/plicometria').subscribe(res => this.plicometrie.next(res));
   }
 
   addPlicometria(plicometria: Plicometria){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/plicometria`, JSON.stringify(plicometria), { headers: headers });
+    return this.http.post(`/admin/plicometria`, JSON.stringify(plicometria), { headers: headers });
   }
 
   modifyPlicometria(plicometria: Plicometria){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/plicometria`, JSON.stringify(plicometria), { headers: headers });
+    return this.http.put(`/admin/plicometria`, JSON.stringify(plicometria), { headers: headers });
   }
 
   deletePlicometria(id_plicometria: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/plicometria`, { body: { headers: headers, id_plicometria: id_plicometria } });
+    return this.http.request('delete', `/admin/plicometria`, { body: { headers: headers, id_plicometria: id_plicometria } });
   }
 }

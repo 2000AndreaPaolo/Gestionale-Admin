@@ -25,21 +25,21 @@ export class PrestazioneService {
   }
 
   loadPrestazione(): void {
-    this.http.get<Prestazioni[]>(environment.apiUrl + '/admin/prestazione').subscribe(res => this.prestazione.next(res));
+    this.http.get<Prestazioni[]>('/admin/prestazione').subscribe(res => this.prestazione.next(res));
   }
 
   addPrestazione(prestazione: Prestazione){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/prestazione`, JSON.stringify(prestazione), { headers: headers });
+    return this.http.post(`/admin/prestazione`, JSON.stringify(prestazione), { headers: headers });
   }
 
   modifyPrestazione(prestazione: Prestazione){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/prestazione`, JSON.stringify(prestazione), { headers: headers });
+    return this.http.put(`/admin/prestazione`, JSON.stringify(prestazione), { headers: headers });
   }
 
   deletPrestazione(id_prestazione: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/prestazione`, { body: { headers: headers, id_prestazione: id_prestazione } });
+    return this.http.request('delete', `/admin/prestazione`, { body: { headers: headers, id_prestazione: id_prestazione } });
   }
 }

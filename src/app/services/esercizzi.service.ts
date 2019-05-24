@@ -28,22 +28,22 @@ export class EserciziService {
   }
 
   loadEsercizzi(): void {
-    this.http.get<Esercizzi[]>(environment.apiUrl + '/admin/esercizio').subscribe(res => this.esercizzi.next(res));
+    this.http.get<Esercizzi[]>('/admin/esercizio').subscribe(res => this.esercizzi.next(res));
   }
 
   addEsercizio(esercizio: Esercizio){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/esercizio`, JSON.stringify(esercizio), { headers: headers });
+    return this.http.post(`/admin/esercizio`, JSON.stringify(esercizio), { headers: headers });
   }
 
   modifysercizio(esercizio: Esercizio){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/esercizio`, JSON.stringify(esercizio), { headers: headers });
+    return this.http.put(`/admin/esercizio`, JSON.stringify(esercizio), { headers: headers });
   }
 
   deletesercizio(id_esercizio: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/esercizio`, { body: { headers: headers, id_esercizio: id_esercizio } });
+    return this.http.request('delete', `/admin/esercizio`, { body: { headers: headers, id_esercizio: id_esercizio } });
   }
 
   getGruppoMuscolare(): Observable<GruppiMuscolari[]> {
@@ -51,6 +51,6 @@ export class EserciziService {
   }
 
   loadGruppoMuscolare(): void {
-    this.http.get<GruppiMuscolari[]>(environment.apiUrl + '/admin/gruppomuscolare').subscribe(res => this.gruppiMuscolari.next(res));
+    this.http.get<GruppiMuscolari[]>('/admin/gruppomuscolare').subscribe(res => this.gruppiMuscolari.next(res));
   }
 }

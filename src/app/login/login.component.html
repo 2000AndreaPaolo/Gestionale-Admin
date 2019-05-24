@@ -1,0 +1,13 @@
+<div class="text-center">
+  <form class="form-signin">
+    <img  class="mb-4" src="" width="200" alt="Logo">
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" id="username" class="form-control" placeholder="Username" required autofocus [(ngModel)]="auth.username" [ngModelOptions]="{standalone: true}">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="password" class="form-control" placeholder="Password" required [(ngModel)]="auth.password" [ngModelOptions]="{standalone: true}">
+    <div class="checkbox mb-3">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Entra" (click)="login()">Login</button>
+  </form>
+</div>

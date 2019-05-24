@@ -25,21 +25,21 @@ export class PesoService {
   }
 
   loadPesi(): void {
-    this.http.get<Pesi[]>(environment.apiUrl + '/admin/peso').subscribe(res => this.pesi.next(res));
+    this.http.get<Pesi[]>('/admin/peso').subscribe(res => this.pesi.next(res));
   }
 
   addPeso(peso: Peso){
     let headers = new HttpHeaders({});
-    return this.http.post(environment.apiUrl + `/admin/peso`, JSON.stringify(peso), { headers: headers });
+    return this.http.post(`/admin/peso`, JSON.stringify(peso), { headers: headers });
   }
 
   modifyPeso(peso: Peso){
     let headers = new HttpHeaders({});
-    return this.http.put(environment.apiUrl + `/admin/peso`, JSON.stringify(peso), { headers: headers });
+    return this.http.put(`/admin/peso`, JSON.stringify(peso), { headers: headers });
   }
 
   deletPeso(id_peso: number){
     let headers  = new HttpHeaders({});
-    return this.http.request('delete', environment.apiUrl + `/admin/peso`, { body: { headers: headers, id_peso: id_peso } });
+    return this.http.request('delete', `/admin/peso`, { body: { headers: headers, id_peso: id_peso } });
   }
 }
