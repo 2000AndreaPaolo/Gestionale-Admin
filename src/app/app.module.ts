@@ -24,6 +24,7 @@ import { PesoComponent } from './peso/peso.component';
 import { NoteComponent } from './note/note.component';
 import { PrestazioneComponent } from './prestazione/prestazione.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginComponent } from './login/login.component';
     PesoComponent,
     NoteComponent,
     PrestazioneComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

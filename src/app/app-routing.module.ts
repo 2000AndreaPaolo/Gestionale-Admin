@@ -12,6 +12,7 @@ import { NoteComponent } from './note/note.component';
 import { PrestazioneComponent } from './prestazione/prestazione.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'atleti', component: AtletiComponent, canActivate: [AuthGuard] },
@@ -23,9 +24,9 @@ const routes: Routes = [
   { path: 'plicometria', component: PlicometriaComponent, canActivate: [AuthGuard] },
   { path: 'peso', component: PesoComponent, canActivate: [AuthGuard] },
   { path: 'prestazione', component: PrestazioneComponent, canActivate: [AuthGuard] },
-  { path: 'note', component: NoteComponent, canActivate: [AuthGuard]},
+  { path: 'note', component: NoteComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/atleti', pathMatch: 'full'},
+  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
 ];
 
 @NgModule({
