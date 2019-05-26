@@ -19,6 +19,7 @@ export class NoteComponent implements OnInit {
   id_atleta: number;
   id_note: number;
   note_: string;
+  page:number;
 
   constructor(
     private noteService: NoteService,

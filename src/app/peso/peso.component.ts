@@ -20,6 +20,7 @@ export class PesoComponent implements OnInit {
   id_peso: number;
   peso_: number;
   note: string;
+  page:number;
 
   constructor(
     private pesoService: PesoService,

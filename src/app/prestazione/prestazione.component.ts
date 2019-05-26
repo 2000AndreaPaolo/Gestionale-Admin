@@ -23,6 +23,7 @@ export class PrestazioneComponent implements OnInit {
   id_esercizio: number;
   peso: number;
   note: string;
+  page: number;
 
   constructor(
     private prestazioneService: PrestazioneService,
