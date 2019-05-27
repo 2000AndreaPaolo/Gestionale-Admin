@@ -57,6 +57,8 @@ export class Programmazione{
     id_programmazione: number;
     id_programma: number;
     id_esercizio: number;
+    data: Date;
+    settimana: number;
     giorno: number;
     serie: number;
     carico: number;

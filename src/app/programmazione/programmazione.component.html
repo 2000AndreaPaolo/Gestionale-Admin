@@ -3,29 +3,34 @@
 	<h3 class="title">Programmazione del programma n. {{id_programma}}</h3>
 	<button class="btn btn-success" type="button" id="addProgrammazione" (click)="openPopUp(0, programmazione_add_modify)">Aggiungi programmazione</button>
 	<table class="table table-bordered table-striped">
-		<thead>
+		<thead class="thead-dark">
 		  <tr>
-			<td class="center_object">Giorno</td>
-			<td class="center_object">Esercizio</td>
-			<td class="center_object">Serie</td>
-      <td class="center_object">Ripetizioni</td>
-      <td class="center_object">Carico</td>
-			<td class="center_object">Note</td>
-			<td class="center_object">Azioni</td>
+				<th class="center_object">Data</th>
+				<th class="center_object">Settimana</th>
+				<th class="center_object">Giorno</th>
+				<th class="center_object">Esercizio</th>
+				<th class="center_object">Serie</th>
+				<th class="center_object">Ripetizioni</th>
+				<th class="center_object">Carico</th>
+				<th class="center_object">Note</th>
+				<th class="center_object">Azioni</th>
 		  </tr>
 		</thead>
 		<tbody>
 		  <tr *ngFor="let programmazione of programmazioni | paginate: { itemsPerPage: 20, currentPage: page }">
-			<td class="center_object">{{programmazione.giorno}}</td>
-			<td class="center_object">{{programmazione.nome_esercizio}}</td>
-			<td class="center_object">{{programmazione.serie}}</td>
-      <td class="center_object">{{programmazione.ripetizioni}}</td>
-      <td class="center_object">{{programmazione.carico}}</td>
-			<td class="center_object">{{programmazione.note}}</td>
-			<td class="center_object">
-				<button #modifica class="btn btn-primary fa fa-edit" value="{{programmazione.id_programmazione}}" (click)="openPopUp(modifica.value, programmazione_add_modify)" ngbTooltip="Modifica programmazione"></button>
-				<button #elimina class="btn btn-danger fa fa-trash" value="{{programmazione.id_programmazione}}" (click)="deleteProgrammazione(elimina.value)" ngbTooltip="Elimina programmazione"></button>
-			</td>
+				<td class="center_object">{{programmazione.data}}</td>
+				<td class="center_object">{{programmazione.settimana}}</td>
+				<td class="center_object">{{programmazione.giorno}}</td>
+				<td class="center_object">{{programmazione.nome_esercizio}}</td>
+				<td class="center_object">{{programmazione.serie}}</td>
+				<td class="center_object">{{programmazione.ripetizioni}}</td>
+				<td class="center_object">{{programmazione.carico}}</td>
+				<td class="center_object">{{programmazione.note}}</td>
+				<td class="center_object">
+					<button #duplica class="btn btn-warning fa fa-clone" value="{{programmazione.id_programmazione}}" ngbTooltip="Duplica programmazione" (click)="duplicateProgrammazione(duplica.value)"></button>
+					<button #modifica class="btn btn-primary fa fa-edit" value="{{programmazione.id_programmazione}}" (click)="openPopUp(modifica.value, programmazione_add_modify)" ngbTooltip="Modifica programmazione"></button>
+					<button #elimina class="btn btn-danger fa fa-trash" value="{{programmazione.id_programmazione}}" (click)="deleteProgrammazione(elimina.value)" ngbTooltip="Elimina programmazione"></button>
+				</td>
 		  </tr>
 		</tbody>
 	  </table>
@@ -44,6 +49,18 @@
 	</div>
 	<div class="modal-body">
 		<form>
+			<div class="form-group">
+				<label>Data inizio</label>
+				<div class="input-group">
+					<input type="date" class="form-control" [(ngModel)]="data" [ngModelOptions]="{standalone: true}" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Settimana</label>
+				<div class="input-group">
+					<input type="number" class="form-control" [(ngModel)]="settimana" [ngModelOptions]="{standalone: true}" required>
+				</div>
+			</div>
 			<div class="form-group">
 			  <label>Giorno</label>
 			  <div class="input-group">
