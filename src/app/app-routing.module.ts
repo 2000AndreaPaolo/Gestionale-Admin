@@ -13,6 +13,7 @@ import { PrestazioneComponent } from './prestazione/prestazione.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { CestinoComponent } from './cestino/cestino.component';
 
 const routes: Routes = [
   { path: 'atleti', component: AtletiComponent, canActivate: [AuthGuard] },
@@ -26,7 +27,9 @@ const routes: Routes = [
   { path: 'prestazione', component: PrestazioneComponent, canActivate: [AuthGuard] },
   { path: 'note', component: NoteComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'cestino', component: CestinoComponent, canActivate: [AuthGuard] },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -25,6 +25,7 @@ import { NoteComponent } from './note/note.component';
 import { PrestazioneComponent } from './prestazione/prestazione.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { CestinoComponent } from './cestino/cestino.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { HomeComponent } from './home/home.component';
     NoteComponent,
     PrestazioneComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    CestinoComponent
   ],
   imports: [
     BrowserModule,
