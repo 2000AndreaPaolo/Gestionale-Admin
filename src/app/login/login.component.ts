@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   login(){
     state: RouterStateSnapshot;
     this.authService.login(this.auth).subscribe((data: Boolean) => {
-      console.log(data);
       if(data){
         this.router.navigate(['/']);
       }else{
