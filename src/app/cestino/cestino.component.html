@@ -1,1 +1,26 @@
 <app-main-nav></app-main-nav>
+<div class="container">
+    <h3 class="title">Lista degli atleti fuori dal programma</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th class="center_object">Nome</th>
+                <th class="center_object">Cognome</th>
+                <th class="center_object">Data di nascita</th>
+                <th class="center_object">Username</th>
+                <th class="center_object">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let atleta of atleti">
+                <td class="center_object">{{atleta.nome}}</td>
+                <td class="center_object">{{atleta.cognome}}</td>
+                <td class="center_object">{{atleta.data_nascita}}</td>
+                <td class="center_object">{{atleta.username}}</td>
+                <td class="center_object">
+                    <button #elimina class="btn btn-primary fa fa-window-restore" (click)="restore(elimina.value)" value="{{atleta.id_atleta}}" ngbTooltip="Restore atelta"></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
