@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
 import { SchedaService } from '../services/scheda.service';
-import { Atleti, Plicometrie, Schede } from '../model';
+import { Atleti, Plicometrie, Schede, Specializzazioni } from '../model';
 import { Atleta } from '../model_body';
 @Component({
   selector: 'app-atleti',
@@ -15,10 +15,12 @@ import { Atleta } from '../model_body';
 export class AtletiComponent implements OnInit {
 
   atleti:Atleti[];
+  specializzazioni:Specializzazioni[];
   atleta:Atleta;
   plicometrie:Plicometrie[];
   schede:Schede[];
   id_atleta:number = null;
+  id_specializzazione:number = null;
 
   pagePliche: number = 1;
   pageSchede: number = 1;
@@ -44,7 +46,12 @@ export class AtletiComponent implements OnInit {
     this.schedaService.getSchede().subscribe((data:Schede[]) => {
       this.schede = data;
     });
-    this.schedaService.loadSchede();   
+    this.schedaService.loadSchede();  
+    
+    this.atletiService.getSpceializzazione().subscribe((data:Specializzazioni[]) => {
+      this.specializzazioni = data;
+    });
+    this.atletiService.loadSpecializzazioni();
   }
 
   openPopUp(id_atleta:number, conten:any){
@@ -55,6 +62,7 @@ export class AtletiComponent implements OnInit {
           this.nome = atleta.nome;
           this.cognome = atleta.cognome;
           this.data_nascita = atleta.data_nascita;
+          this.id_specializzazione = atleta.id_specializzazione;
         }
       }
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
@@ -62,6 +70,7 @@ export class AtletiComponent implements OnInit {
       this.nome = '';
       this.cognome = '';
       this.data_nascita = null;
+      this.id_specializzazione = null;
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
     }
   }
@@ -71,6 +80,7 @@ export class AtletiComponent implements OnInit {
     this.atleta.cognome = this.cognome;
     this.id_atleta = this.id_atleta;
     this.atleta.data_nascita = this.data_nascita;
+    this.atleta.id_specializzazione = this.id_specializzazione;
     this.atletiService.addAtleta(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
         this.atletiService.loadAtleti();
@@ -89,6 +99,7 @@ export class AtletiComponent implements OnInit {
     this.atleta.cognome = this.cognome;
     this.atleta.id_atleta = this.id_atleta;
     this.atleta.data_nascita = this.data_nascita;
+    this.atleta.id_specializzazione = this.id_specializzazione;
     this.atletiService.modifyAtleti(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
         this.atletiService.loadAtleti();
@@ -132,5 +143,9 @@ export class AtletiComponent implements OnInit {
     this.schede = appoggio_schede;
 
     this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
+  }
+
+  onChangeSpecializzazione(id_specializzazione:any){
+    this.id_specializzazione = id_specializzazione;
   }
 }

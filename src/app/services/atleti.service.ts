@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 import '../model';
 import '../model_body';
-import { Atleti } from '../model';
+import { Atleti, Specializzazioni } from '../model';
 import { Atleta } from '../model_body';
 
 @Injectable({
@@ -16,9 +16,11 @@ import { Atleta } from '../model_body';
 export class AtletiService {
 
   private atleti:Subject<Atleti[]>;
+  private spcecializzazione:Subject<Specializzazioni[]>;
 
   constructor(private http: HttpClient){
     this.atleti = new Subject<Atleti[]>();
+    this.spcecializzazione = new Subject<Specializzazioni[]>();
   }
 
   getAtleti(): Observable<Atleti[]> {
@@ -27,6 +29,14 @@ export class AtletiService {
 
   loadAtleti(): void {
     this.http.get<Atleti[]>('/admin/atleta').subscribe(res => this.atleti.next(res));
+  }
+
+  getSpceializzazione(): Observable<Specializzazioni[]> {
+    return this.spcecializzazione.asObservable();
+  }
+
+  loadSpecializzazioni(): void {
+    this.http.get<Specializzazioni[]>('/admin/specializzazione').subscribe(res => this.spcecializzazione.next(res));
   }
 
   addAtleta(atleta: Atleta){

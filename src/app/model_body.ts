@@ -8,6 +8,12 @@ export class Atleta{
     nome: string;
     cognome: string;
     data_nascita: Date;
+    id_specializzazione: number;
+}
+
+export class Specializzazione{
+    id_specializzazione: number;
+    descrizione: string;
 }
 
 export class Esercizio{

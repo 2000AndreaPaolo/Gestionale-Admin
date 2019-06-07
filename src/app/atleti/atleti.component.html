@@ -9,6 +9,7 @@
                 <th class="center_object">Nome</th>
                 <th class="center_object">Cognome</th>
                 <th class="center_object">Data nascita</th>
+                <th class="center_object">Specializzazione</th>
                 <th class="center_object">Username</th>
                 <th class="center_object">Azioni</th>
             </tr>
@@ -19,6 +20,7 @@
                 <td class="center_object">{{atleta.nome}}</td>
                 <td class="center_object">{{atleta.cognome}}</td>
                 <td class="center_object">{{atleta.data_nascita}}</td>
+                <td class="center_object">{{atleta.descrizione}}</td>
                 <td class="center_object">{{atleta.username}}</td>
                 <td class="center_object">
                     <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza resoconto" (click)="view(visualizza.value, view_atleta)"></button>
@@ -55,7 +57,16 @@
             <div class="form-group">
                 <label >Data nascita</label>
                 <div class="input-group">
-                            <input type="date" class="form-control" [(ngModel)]="data_nascita" [ngModelOptions]="{standalone: true}" required>
+                    <input type="date" class="form-control" [(ngModel)]="data_nascita" [ngModelOptions]="{standalone: true}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Specializzazione</label>
+                <div class="input-group">
+                    <select class="form-control" (change)="onChangeSpecializzazione($event.target.value)" [value]='id_specializzazione'>
+                    <option value=""></option>
+                    <option *ngFor="let specializzazione of specializzazioni" value="{{specializzazione.id_specializzazione}}">{{specializzazione.descrizione}}</option>
+                    </select>
                 </div>
             </div>
         </form>

@@ -11,6 +11,12 @@ export class Atleti{
     cognome: string;
     username: string;
     data_nascita: Date;
+    id_specializzazione: number;
+}
+
+export class Specializzazioni{
+    id_specializzazione: number;
+    descrizione: string;
 }
 
 export class Esercizzi{
