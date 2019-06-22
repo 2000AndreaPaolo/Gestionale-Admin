@@ -5,4 +5,4 @@ services:
         image: 'gestionale-admin'
         build: '.'
         ports:
-            - 8888:80
+            - 80:80
