@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    build: ../
+    ports:
+      - 8888:8888
+    container_name: admin-nginx
+    expose:
+      - 8888
