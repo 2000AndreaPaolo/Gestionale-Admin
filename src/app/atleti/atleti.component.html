@@ -87,29 +87,7 @@
     </div>
     <div class="modal-body">
         <div class="separazione">
-            <h3 class="title">Lista delle scheda</h3>
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="center_object">Nome</th>
-                        <th class="center_object">Data inizio</th>
-                        <th class="center_object">Data fine</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let scheda of schede | paginate: { itemsPerPage: 5, currentPage: pageSchede }">
-                        <td class="center_object">{{scheda.nome}}</td>
-                        <td class="center_object">{{scheda.data_inizio}}</td>
-                        <td class="center_object">{{scheda.data_fine}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="pagination">
-                    <pagination-controls (pageChange)="pageSchede = $event"></pagination-controls>
-            </div>
-        </div>
-        <div class="separazione">
-            <h3 class="title_popup">Lista delle plicometrie</h3>
+            <h3 class="title">Lista delle plicometrie</h3>
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>

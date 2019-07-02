@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
 import { SchedaService } from '../services/scheda.service';
-import { Atleti, Plicometrie, Schede, Specializzazioni } from '../model';
+import { Atleti, Plicometrie, Schede, Specializzazioni, Programmi } from '../model';
 import { Atleta } from '../model_body';
 @Component({
   selector: 'app-atleti',
@@ -18,7 +18,6 @@ export class AtletiComponent implements OnInit {
   specializzazioni:Specializzazioni[];
   atleta:Atleta;
   plicometrie:Plicometrie[];
-  schede:Schede[];
   id_atleta:number = null;
   id_specializzazione:number = null;
 
@@ -42,11 +41,6 @@ export class AtletiComponent implements OnInit {
       this.plicometrie = data;
     });
     this.plicometriaService.loadPlicometrie(); 
-
-    this.schedaService.getSchede().subscribe((data:Schede[]) => {
-      this.schede = data;
-    });
-    this.schedaService.loadSchede();  
     
     this.atletiService.getSpceializzazione().subscribe((data:Specializzazioni[]) => {
       this.specializzazioni = data;
@@ -133,15 +127,6 @@ export class AtletiComponent implements OnInit {
       }
     }
     this.plicometrie = appoggio_pliche;
-
-    let appoggio_schede:Schede[] = [];
-    for(let scheda of this.schede){
-      if(scheda.id_atleta == id_atleta){
-        appoggio_schede.push(scheda);
-      }
-    }
-    this.schede = appoggio_schede;
-
     this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
   }
 
