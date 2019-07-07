@@ -18,7 +18,6 @@ down:
 
 .PHONY: devup
 devup:
-	$(COMPOSE) build
 	$(DEVCOMPOSE) up
 
 .PHONY: devupd

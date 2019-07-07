@@ -141,18 +141,18 @@ export class ProgrammazioneComponent implements OnInit {
   }
 
   duplicateProgrammazione(id_programmazione: number){
-    this.findById_programmazione(this.id_programmazione);
+    this.findById_programmazione(id_programmazione);
     this.addProgrammazione();
   }
 
   findById_programmazione(id_programmazione: number){
     for(let programmazione of this.programmazioni){
-      if(programmazione.id_programmazione == this.id_programmazione){
+      if(programmazione.id_programmazione == id_programmazione){
         this.id_programma = programmazione.id_programma;
         this.giorno = programmazione.giorno;
         this.id_esercizio = programmazione.id_esercizio;
         this.serie = programmazione.serie;
-        this.ripetizioni = programmazione. ripetizioni;
+        this.ripetizioni = programmazione.ripetizioni;
         this.note = programmazione.note;
         this.carico = programmazione.carico;
         this.data = programmazione.data;
