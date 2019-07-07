@@ -59,4 +59,12 @@ export class AtletiService {
     let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
     return age;
   }
+
+  resetPassword(id:number){
+    let headers = new HttpHeaders({});
+    let body = {
+      'id': id,
+    };
+    return this.http.post('/admin/atleta/resetpassword', JSON.stringify(body), { headers: headers });
+  }
 }

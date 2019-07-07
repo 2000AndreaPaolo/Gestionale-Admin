@@ -133,4 +133,14 @@ export class AtletiComponent implements OnInit {
   onChangeSpecializzazione(id_specializzazione:any){
     this.id_specializzazione = id_specializzazione;
   }
+
+  resetPassword(id_atleta:number){
+    this.atletiService.resetPassword(id_atleta).subscribe((data:any)=>{ 
+      if(data.code == 200)
+      this.toastr.success('Password Resettata', 'Successo');
+      
+      else
+      this.toastr.error('Password non resettata', 'Errore');
+    });
+  }
 }

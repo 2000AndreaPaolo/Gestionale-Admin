@@ -24,6 +24,7 @@
                 <td class="center_object">{{atleta.username}}</td>
                 <td class="center_object">
                     <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza resoconto" (click)="view(visualizza.value, view_atleta)"></button>
+                    <button #reset type="button" ngbTooltip="Reset Password" class="btn btn-warning fa fa-key" value="{{atleta.id_atleta}}" (click)="resetPassword(reset.value)"></button>
                     <button #modifica class="btn btn-primary fa fa-edit" (click)="openPopUp(modifica.value, atleti_add_modify)" value="{{atleta.id_atleta}}" ngbTooltip="Modifica atleta"></button>
                     <button #elimina class="btn btn-danger fa fa-trash" (click)="deleteAtelta(elimina.value)" value="{{atleta.id_atleta}}" ngbTooltip="Elimina atleta"></button>
                 </td>
