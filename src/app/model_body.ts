@@ -9,6 +9,7 @@ export class Atleta{
     cognome: string;
     data_nascita: Date;
     id_specializzazione: number;
+    id_coach: number;
 }
 
 export class Specializzazione{
@@ -49,6 +50,7 @@ export class Plicometria{
     percentuale: number;
     data_rilevazione: Date;
     note: string;
+    id_coach: number;
 }
 
 export class Programma{

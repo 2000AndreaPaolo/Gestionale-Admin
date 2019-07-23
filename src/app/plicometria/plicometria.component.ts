@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { PlicometriaService } from '../services/plicometria.service';
 import { AtletiService } from '../services/atleti.service';
-import { Plicometrie, Atleti } from '../model';
+import { Plicometrie, Atleti, AuthUser } from '../model';
 import { Plicometria } from '../model_body';
 @Component({
   selector: 'app-plicometria',
@@ -13,6 +13,7 @@ import { Plicometria } from '../model_body';
 })
 export class PlicometriaComponent implements OnInit {
 
+  authUser:AuthUser;
   plicometrie: Plicometrie[];
   plicometria: Plicometria;
   atleti: Atleti[];
@@ -28,15 +29,16 @@ export class PlicometriaComponent implements OnInit {
   constructor(private plicometriaService:PlicometriaService, private modalService: NgbModal, private toastr: ToastrService, private atletiService: AtletiService) { }
 
   ngOnInit() {
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.plicometria = new Plicometria();
     this.plicometriaService.getPlicometrie().subscribe((data:Plicometrie[]) => {
       this.plicometrie = data;
     });
-    this.plicometriaService.loadPlicometrie();
+    this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
     this.atletiService.getAtleti().subscribe((data: Atleti[]) => {
 			this.atleti = data;
 		});
-		this.atletiService.loadAtleti();
+		this.atletiService.loadAtleti(this.authUser.id_coach);
   }
 
   addPlicometria(){
@@ -47,18 +49,20 @@ export class PlicometriaComponent implements OnInit {
     this.plicometria.percentuale = this.id_atleta;
     this.plicometria.note = this.note;
     this.plicometria.data_rilevazione = this.data_rilevazione;
+    this.plicometria.id_coach = this.authUser.id_coach;
     for(let atleta of this.atleti){
       if(atleta.id_atleta == this.id_atleta){
         this.plicometria.percentuale = this.calcoloPercentuale(atleta.data_nascita);
       }
     }
+    console.log(this.plicometria);
     this.plicometriaService.addPlicometria(this.plicometria).subscribe((data) => {
       if(data['code'] == 200){
-				this.plicometriaService.loadPlicometrie();
+				this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Plicometria aggiunta con successo', 'Successo');
 			}else{
-        this.plicometriaService.loadPlicometrie();
+        this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Plicometria non aggiunta', 'Errore');
 			}
@@ -73,6 +77,7 @@ export class PlicometriaComponent implements OnInit {
     this.plicometria.gamba = this.gamba;
     this.plicometria.note = this.note;
     this.plicometria.data_rilevazione = this.data_rilevazione;
+    this.plicometria.id_coach = this.authUser.id_coach;
     for(let atleta of this.atleti){
       if(atleta.id_atleta == this.id_atleta){
         this.plicometria.percentuale = this.calcoloPercentuale(atleta.data_nascita);
@@ -80,11 +85,11 @@ export class PlicometriaComponent implements OnInit {
     }
     this.plicometriaService.modifyPlicometria(this.plicometria).subscribe((data) => {
       if(data['code'] == 200){
-				this.plicometriaService.loadPlicometrie();
+				this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Plicometria modificata con successo', 'Successo');
 			}else{
-        this.plicometriaService.loadPlicometrie();
+        this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Plicometria non modificata', 'Errore');
 			}
@@ -94,11 +99,11 @@ export class PlicometriaComponent implements OnInit {
   deletePlicometria(id_plicometria:number){
     this.plicometriaService.deletePlicometria(id_plicometria).subscribe((data) => {
       if(data['code'] == 200){
-				this.plicometriaService.loadPlicometrie();
+				this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Plicometria rimossa con successo', 'Successo');
 			}else{
-        this.plicometriaService.loadPlicometrie();
+        this.plicometriaService.loadPlicometrie(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Plicometria non rimossa', 'Errore');
 			}

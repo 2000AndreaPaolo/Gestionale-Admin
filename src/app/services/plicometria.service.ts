@@ -24,8 +24,9 @@ export class PlicometriaService {
     return this.plicometrie.asObservable();
   }
 
-  loadPlicometrie(): void {
-    this.http.get<Plicometrie[]>('/admin/plicometria').subscribe(res => this.plicometrie.next(res));
+  loadPlicometrie(id_coach:number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Plicometrie[]>('/admin/get/plicometria', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.plicometrie.next(res));
   }
 
   addPlicometria(plicometria: Plicometria){

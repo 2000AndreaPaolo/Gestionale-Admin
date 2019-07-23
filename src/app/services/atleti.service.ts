@@ -29,8 +29,7 @@ export class AtletiService {
 
   loadAtleti(id_coach: number): void {
     let headers = new HttpHeaders({});
-    //this.http.get<Atleti[]>('/admin/atleta').subscribe(res => this.atleti.next(res));
-    this.http.post('/admin/atleta', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.atleti.next(res));
+    this.http.post<Atleti[]>('/admin/get/atleta', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.atleti.next(res));
   }
 
   getSpceializzazione(): Observable<Specializzazioni[]> {
@@ -59,6 +58,7 @@ export class AtletiService {
 
   clalcoEta(data_nascita){
     let timeDiff = Math.abs(Date.now() - data_nascita);
+    console.log(timeDiff);
     let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
     return age;
   }

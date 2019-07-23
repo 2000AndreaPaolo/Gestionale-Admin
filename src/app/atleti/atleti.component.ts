@@ -46,7 +46,7 @@ export class AtletiComponent implements OnInit {
     this.plicometriaService.getPlicometrie().subscribe((data:Plicometrie[]) => {
       this.plicometrie = data;
     });
-    this.plicometriaService.loadPlicometrie(); 
+    this.plicometriaService.loadPlicometrie(this.authUser.id_coach); 
     
     this.atletiService.getSpceializzazione().subscribe((data:Specializzazioni[]) => {
       this.specializzazioni = data;
