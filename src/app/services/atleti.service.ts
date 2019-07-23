@@ -27,8 +27,10 @@ export class AtletiService {
     return this.atleti.asObservable();
   }
 
-  loadAtleti(): void {
-    this.http.get<Atleti[]>('/admin/atleta').subscribe(res => this.atleti.next(res));
+  loadAtleti(id_coach: number): void {
+    let headers = new HttpHeaders({});
+    //this.http.get<Atleti[]>('/admin/atleta').subscribe(res => this.atleti.next(res));
+    this.http.post('/admin/atleta', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.atleti.next(res));
   }
 
   getSpceializzazione(): Observable<Specializzazioni[]> {

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
-import { SchedaService } from '../services/scheda.service';
-import { Atleti, Plicometrie, Schede, Specializzazioni, Programmi } from '../model';
+import { Atleti, Plicometrie, Specializzazioni, AuthUser } from '../model';
 import { Atleta } from '../model_body';
 @Component({
   selector: 'app-atleti',
@@ -14,6 +13,7 @@ import { Atleta } from '../model_body';
 })
 export class AtletiComponent implements OnInit {
 
+  authUser:AuthUser;
   atleti:Atleti[];
   specializzazioni:Specializzazioni[];
   atleta:Atleta;
@@ -28,14 +28,20 @@ export class AtletiComponent implements OnInit {
   cognome:string = '';
   data_nascita:Date;
 
-  constructor(private atletiService:AtletiService, private modalService: NgbModal, private toastr: ToastrService, private plicometriaService:PlicometriaService, private schedaService:SchedaService){}
+  constructor(
+    private atletiService:AtletiService, 
+    private modalService: NgbModal, 
+    private toastr: ToastrService, 
+    private plicometriaService:PlicometriaService
+    ){}
 
   ngOnInit(){
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.atleta = new Atleta();
     this.atletiService.getAtleti().subscribe((data:Atleti[]) => {
       this.atleti = data;
     });
-    this.atletiService.loadAtleti();
+    this.atletiService.loadAtleti(this.authUser.id_coach);
 
     this.plicometriaService.getPlicometrie().subscribe((data:Plicometrie[]) => {
       this.plicometrie = data;
@@ -77,11 +83,11 @@ export class AtletiComponent implements OnInit {
     this.atleta.id_specializzazione = this.id_specializzazione;
     this.atletiService.addAtleta(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.success('Atleta aggiunto con successo', 'Successo');
       }else{
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.error('Atleta non aggiunto', 'Errore');
       }
@@ -96,11 +102,11 @@ export class AtletiComponent implements OnInit {
     this.atleta.id_specializzazione = this.id_specializzazione;
     this.atletiService.modifyAtleti(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.success('Atleta modificato con successo', 'Successo');
       }else{
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.error('Atleta non modificato', 'Errore');
       }
@@ -110,10 +116,10 @@ export class AtletiComponent implements OnInit {
   deleteAtelta(id_atleta:number){
     this.atletiService.deleteAtleta(id_atleta).subscribe((data) => {
       if(data['code'] == 200){
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.toastr.success('Atleta eliminato con successo', 'Successo');
       }else{
-        this.atletiService.loadAtleti();
+        this.atletiService.loadAtleti(this.authUser.id_coach);
         this.toastr.error('Atleta non eliminato', 'Errore');
       }
     });
