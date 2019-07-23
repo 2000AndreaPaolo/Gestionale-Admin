@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { PesoService } from '../services/peso.service';
 import { AtletiService } from '../services/atleti.service';
-import { Pesi, Atleti } from '../model';
+import { Pesi, Atleti, AuthUser } from '../model';
 import { Peso } from '../model_body';
 @Component({
   selector: 'app-peso',
@@ -13,6 +13,7 @@ import { Peso } from '../model_body';
 })
 export class PesoComponent implements OnInit {
 
+  authUser:AuthUser;
   pesi: Pesi[];
   peso: Peso;
   atleti: Atleti[];
@@ -30,15 +31,16 @@ export class PesoComponent implements OnInit {
   ){}
 
   ngOnInit(){
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.peso = new Peso();
     this.pesoService.getPesi().subscribe((data: Pesi[]) => {
       this.pesi = data;
     });
-    this.pesoService.loadPesi();
+    this.pesoService.loadPesi(this.authUser.id_coach);
     this.atletiService.getAtleti().subscribe((data: Atleti[]) => {
       this.atleti = data;
     });
-    this.atletiService.loadAtleti();
+    this.atletiService.loadAtleti(this.authUser.id_coach);
   }
 
   openPopUp(id_peso: number, conten: any) {
@@ -66,11 +68,11 @@ export class PesoComponent implements OnInit {
     this.peso.peso = this.peso_;
 		this.pesoService.addPeso(this.peso).subscribe((data) => {
 			if(data['code'] == 200){
-          this.pesoService.loadPesi();
+          this.pesoService.loadPesi(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Peso aggiunto con successo', 'Successo');
 			  }else{
-          this.pesoService.loadPesi();
+          this.pesoService.loadPesi(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Peso non aggiunto', 'Errore');
 			  }
@@ -84,11 +86,11 @@ export class PesoComponent implements OnInit {
     this.peso.peso = this.peso_;
 		this.pesoService.modifyPeso(this.peso).subscribe((data) => {
 			if(data['code'] == 200){
-          this.pesoService.loadPesi();
+          this.pesoService.loadPesi(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Peso modificato con successo', 'Successo');
 			  }else{
-          this.pesoService.loadPesi();
+          this.pesoService.loadPesi(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Peso non modificato', 'Errore');
 			  }
@@ -98,11 +100,11 @@ export class PesoComponent implements OnInit {
   deleteNote(id_peso:number){
     this.pesoService.deletPeso(id_peso).subscribe((data) => {
 			if(data['code'] == 200){
-				this.pesoService.loadPesi();
+				this.pesoService.loadPesi(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Peso eliminato con successo', 'Successo');
 			  }else{
-          this.pesoService.loadPesi();
+          this.pesoService.loadPesi(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Peso non eliminato', 'Errore');
 			  }
