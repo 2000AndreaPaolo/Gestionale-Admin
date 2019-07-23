@@ -63,6 +63,7 @@ export class AtletiComponent implements OnInit {
           this.cognome = atleta.cognome;
           this.data_nascita = atleta.data_nascita;
           this.id_specializzazione = atleta.id_specializzazione;
+          this.atleta.id_coach = this.authUser.id_coach;
         }
       }
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
@@ -81,8 +82,13 @@ export class AtletiComponent implements OnInit {
     this.id_atleta = this.id_atleta;
     this.atleta.data_nascita = this.data_nascita;
     this.atleta.id_specializzazione = this.id_specializzazione;
+    this.atleta.id_coach = this.authUser.id_coach;
     this.atletiService.addAtleta(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
+        this.atletiService.loadAtleti(this.authUser.id_coach);
+        this.modalService.dismissAll('Reason');
+        this.toastr.success('Atleta aggiunto con successo', 'Successo');
+      }else if (data['code'] == undefined){
         this.atletiService.loadAtleti(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.success('Atleta aggiunto con successo', 'Successo');
@@ -100,6 +106,7 @@ export class AtletiComponent implements OnInit {
     this.atleta.id_atleta = this.id_atleta;
     this.atleta.data_nascita = this.data_nascita;
     this.atleta.id_specializzazione = this.id_specializzazione;
+    this.atleta.id_coach = this.authUser.id_coach;
     this.atletiService.modifyAtleti(this.atleta).subscribe((data) => {
       if(data['code'] == 200){
         this.atletiService.loadAtleti(this.authUser.id_coach);

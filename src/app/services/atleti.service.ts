@@ -43,6 +43,7 @@ export class AtletiService {
 
   addAtleta(atleta: Atleta){
     let headers = new HttpHeaders({});
+    console.log(atleta);
     return this.http.post('/admin/atleta', JSON.stringify(atleta), { headers: headers });
   }
 
