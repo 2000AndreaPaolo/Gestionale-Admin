@@ -24,8 +24,9 @@ export class SchedaService {
     return this.schede.asObservable();
   }
 
-  loadSchede(): void {
-    this.http.get<Schede[]>('/admin/scheda').subscribe(res => this.schede.next(res));
+  loadSchede(id_coach: number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Schede[]>('/admin/get/scheda', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.schede.next(res));
   }
 
   addScheda(scheda: Scheda){

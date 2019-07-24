@@ -5,7 +5,7 @@ import {Router} from "@angular/router"
 
 import { SchedaService } from '../services/scheda.service';
 import { AtletiService } from '../services/atleti.service';
-import { Schede, Atleti } from '../model';
+import { Schede, Atleti, AuthUser } from '../model';
 import { Scheda } from '../model_body';
 @Component({
 	selector: 'app-scheda',
@@ -14,6 +14,7 @@ import { Scheda } from '../model_body';
 })
 export class SchedaComponent implements OnInit {
 
+	authUser:AuthUser;
 	schede: Scheda[];
 	scheda: Scheda;
 	atleti: Atleti[];
@@ -28,15 +29,16 @@ export class SchedaComponent implements OnInit {
 	constructor(private schedaService: SchedaService, private atletiService: AtletiService, private modalService: NgbModal, private toastr: ToastrService, private router: Router) { }
 
 	ngOnInit() {
+		this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
 		this.scheda = new Scheda();
 		this.schedaService.getSchede().subscribe((data: Schede[]) => {
 			this.schede = data;
 		});
-		this.schedaService.loadSchede();
+		this.schedaService.loadSchede(this.authUser.id_coach);
 		this.atletiService.getAtleti().subscribe((data: Atleti[]) => {
 			this.atleti = data;
 		});
-		this.atletiService.loadAtleti();
+		this.atletiService.loadAtleti(this.authUser.id_coach);
 	}
 
 	openPopUp(id_scheda: number, conten: any) {
@@ -70,11 +72,11 @@ export class SchedaComponent implements OnInit {
 		this.scheda.id_atleta = this.id_atleta;
 		this.schedaService.addScheda(this.scheda).subscribe((data) => {
 			if(data['code'] == 200){
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Scheda aggiunta con successo', 'Successo');
 			  }else{
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Scheda non aggiunta', 'Errore');
 			  }
@@ -90,11 +92,11 @@ export class SchedaComponent implements OnInit {
 		this.scheda.id_atleta = this.id_atleta;
 		this.schedaService.modifyScheda(this.scheda).subscribe((data) => {
 			if(data['code'] == 200){
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Scheda modificata con successo', 'Successo');
 			  }else{
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Scheda non modificata', 'Errore');
 			  }
@@ -104,11 +106,11 @@ export class SchedaComponent implements OnInit {
 	deleteScheda(id_scheda:number) {
 		this.schedaService.deleteScheda(id_scheda).subscribe((data) => {
 			if(data['code'] == 200){
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Scheda eliminata con successo', 'Successo');
 			  }else{
-				this.schedaService.loadSchede();
+				this.schedaService.loadSchede(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Scheda non eliminata', 'Errore');
 			  }
