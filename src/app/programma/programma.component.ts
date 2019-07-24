@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 
 import { ProgrammaService } from '../services/programma.service';
 import { AtletiService } from '../services/atleti.service';
-import { Programmi, Atleti } from '../model';
+import { Programmi, Atleti, AuthUser } from '../model';
 import { Programma } from '../model_body';
 @Component({
   selector: 'app-programma',
@@ -14,6 +14,7 @@ import { Programma } from '../model_body';
 })
 export class ProgrammaComponent implements OnInit {
 
+  authUser:AuthUser;
   programmi: Programmi[];
   programma: Programma;
   atleti: Atleti[];
@@ -33,15 +34,16 @@ export class ProgrammaComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.programma = new Programma();
     this.programmaService.getProgrammi().subscribe((data:Programmi[]) => {
       this.programmi = data;
     });
-    this.programmaService.loadProgrammi();
+    this.programmaService.loadProgrammi(this.authUser.id_coach);
     this.atletiService.getAtleti().subscribe((data:Atleti[]) => {
       this.atleti = data;
     });
-    this.atletiService.loadAtleti();
+    this.atletiService.loadAtleti(this.authUser.id_coach);
   }
 
   addProgramma(){
@@ -51,11 +53,11 @@ export class ProgrammaComponent implements OnInit {
     this.programma.note = this.note;
     this.programmaService.addProgramma(this.programma).subscribe((data) => {
       if(data['code'] == 200){
-        this.programmaService.loadProgrammi();
+        this.programmaService.loadProgrammi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
 				this.toastr.success('Programma aggiunto con successo', 'Successo');
 			}else{
-				this.programmaService.loadProgrammi();
+				this.programmaService.loadProgrammi(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programma non aggiunto', 'Errore');
 			}
@@ -70,11 +72,11 @@ export class ProgrammaComponent implements OnInit {
     this.programma.note = this.note;
     this.programmaService.modifyProgramma(this.programma).subscribe((data) => {
       if(data['code'] == 200){
-        this.programmaService.loadProgrammi();
+        this.programmaService.loadProgrammi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
 				this.toastr.success('Programma modificato con successo', 'Successo');
 			}else{
-				this.programmaService.loadProgrammi();
+				this.programmaService.loadProgrammi(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programma non modificato', 'Errore');
 			}
@@ -84,10 +86,10 @@ export class ProgrammaComponent implements OnInit {
   deleteProgramma(id_programma:number){
     this.programmaService.deleteProgramma(id_programma).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmaService.loadProgrammi();
+				this.programmaService.loadProgrammi(this.authUser.id_coach);
 				this.toastr.success('Programma eliminato con successo', 'Successo');
 			}else{
-				this.programmaService.loadProgrammi();
+				this.programmaService.loadProgrammi(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programma non eliminato', 'Errore');
 			}

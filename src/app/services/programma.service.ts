@@ -23,8 +23,9 @@ export class ProgrammaService {
     return this.programmi.asObservable();
   }
 
-  loadProgrammi(): void {
-    this.http.get<Programmi[]>('/admin/programma').subscribe(res => this.programmi.next(res));
+  loadProgrammi(id_coach:number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Programmi[]>('/admin/get/programma', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.programmi.next(res));
   }
 
   addProgramma(Programma: Programma){
