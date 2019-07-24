@@ -41,15 +41,9 @@ export class ProgressioneComponent implements OnInit {
     });
     this.progressione = new Progressione();
     this.progressioneService.getProgressioni().subscribe((data: Progressioni[]) => {
-      let appoggio: any[] = [];
-      for(let p of data){
-        if(p.id_scheda == this.id_scheda){
-          appoggio.push(p);
-        }
-      }
-      this.progressioni = appoggio;
+      this.progressioni = data;
 		});
-    this.progressioneService.loadProgressioni();
+    this.progressioneService.loadProgressioni(this.id_scheda);
     this.esercizio = new Esercizio();
     this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
       this.esercizzi = data;
@@ -66,11 +60,11 @@ export class ProgressioneComponent implements OnInit {
     this.progressione.note = this.note;
     this.progressioneService.addProgressione(this.progressione).subscribe((data) => {
       if(data['code'] == 200){
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Progressione aggiunta con successo', 'Successo');
 			  }else{
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Progressione non aggiunta', 'Errore');
 			  }
@@ -87,11 +81,11 @@ export class ProgressioneComponent implements OnInit {
     this.progressione.note = this.note;
     this.progressioneService.modifyProgressione(this.progressione).subscribe((data) => {
       if(data['code'] == 200){
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Progressione modificata con successo', 'Successo');
 			  }else{
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Progressione non modificata', 'Errore');
 			}
@@ -101,11 +95,11 @@ export class ProgressioneComponent implements OnInit {
   deleteProgressione(id_progressione){
     this.progressioneService.deleteProgressione(id_progressione).subscribe((data) => {
       if(data['code'] == 200){
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Progressione eliminata con successo', 'Successo');
 			  }else{
-				this.progressioneService.loadProgressioni();
+				this.progressioneService.loadProgressioni(this.id_scheda);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Progressione non eliminata', 'Errore');
 			}

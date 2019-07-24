@@ -24,8 +24,9 @@ export class ProgressioneService {
     return this.progressioni.asObservable();
   }
 
-  loadProgressioni(): void {
-    this.http.get<Progressioni[]>('/admin/progressione').subscribe(res => this.progressioni.next(res));
+  loadProgressioni(id_scheda: number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Progressioni[]>('/admin/get/progressione', JSON.stringify(id_scheda), { headers: headers }).subscribe(res => this.progressioni.next(res));
   }
 
   addProgressione(progressione: Progressione){
