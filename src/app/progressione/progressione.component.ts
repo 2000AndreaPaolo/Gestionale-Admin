@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ProgressioneService } from '../services/progressione.service';
 import { EserciziService } from '../services/esercizzi.service';
-import { Progressioni, Esercizzi } from '../model';
+import { Progressioni, Esercizzi, AuthUser } from '../model';
 import { Progressione, Esercizio } from '../model_body';
 @Component({
   selector: 'app-progressione',
@@ -14,6 +14,7 @@ import { Progressione, Esercizio } from '../model_body';
 })
 export class ProgressioneComponent implements OnInit {
 
+  authUser:AuthUser;
   progressione: Progressione;
   progressioni: Progressioni[];
   esercizio: Esercizio;
@@ -36,6 +37,7 @@ export class ProgressioneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.route.params.subscribe(params => {
       this.id_scheda = params['id_scheda'];
     });
@@ -48,7 +50,7 @@ export class ProgressioneComponent implements OnInit {
     this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
       this.esercizzi = data;
     });
-    this.eserciziService.loadEsercizzi();
+    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
   }
 
   addProgressione(){

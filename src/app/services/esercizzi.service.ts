@@ -27,8 +27,9 @@ export class EserciziService {
     return this.esercizzi.asObservable();
   }
 
-  loadEsercizzi(): void {
-    this.http.get<Esercizzi[]>('/admin/esercizio').subscribe(res => this.esercizzi.next(res));
+  loadEsercizzi(id_coach: number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Esercizzi[]>('/admin/get/esercizio', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.esercizzi.next(res));
   }
 
   addEsercizio(esercizio: Esercizio){

@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EserciziService } from '../services/esercizzi.service';
 import { Esercizzi } from '../model';
 import { Esercizio } from '../model_body';
-import { GruppiMuscolari } from '../model';
+import { GruppiMuscolari, AuthUser } from '../model';
 @Component({
   selector: 'app-esercizi',
   templateUrl: './esercizi.component.html',
@@ -13,6 +13,7 @@ import { GruppiMuscolari } from '../model';
 })
 export class EserciziComponent implements OnInit {
 
+  authUser:AuthUser;
   esercizzi:Esercizzi[];
   esercizio:Esercizio;
   gruppiMuscolari:GruppiMuscolari[];
@@ -21,14 +22,19 @@ export class EserciziComponent implements OnInit {
   descrizione:string;
   page:number = 1;
 
-  constructor(private eserciziService:EserciziService, private modalService: NgbModal, private toastr: ToastrService){}
+  constructor(
+    private eserciziService:EserciziService, 
+    private modalService: NgbModal, 
+    private toastr: ToastrService
+    ){}
 
   ngOnInit(){
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.esercizio = new Esercizio();
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
-    this.eserciziService.loadEsercizzi();
+    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
     this.eserciziService.getGruppoMuscolare().subscribe((data:GruppiMuscolari[]) => {
       this.gruppiMuscolari = data;
     });
@@ -62,11 +68,11 @@ export class EserciziComponent implements OnInit {
     this.esercizio.id_gruppoMuscolare = this.id_gruppoMuscolare;
     this.eserciziService.addEsercizio(this.esercizio).subscribe((data) => {
       if(data['code'] == 200){
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.success('Esercizio aggiunto con successo', 'Successo');
       }else{
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.error('Esercizio non aggiunto', 'Errore');
       }
@@ -79,11 +85,11 @@ export class EserciziComponent implements OnInit {
     this.esercizio.id_gruppoMuscolare = this.id_gruppoMuscolare;
     this.eserciziService.modifysercizio(this.esercizio).subscribe((data) => {
       if(data['code'] == 200){
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.success('Esercizio modificato con successo', 'Successo');
       }else{
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.modalService.dismissAll('Reason');
         this.toastr.error('Esercizio non modificato', 'Errore');
       }
@@ -93,10 +99,10 @@ export class EserciziComponent implements OnInit {
   deleteEsercizio(id_esercizio:number){
     this.eserciziService.deletesercizio(id_esercizio).subscribe((data) => {
       if(data['code'] == 200){
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.toastr.success('Esercizio eliminato con successo', 'Successo');
       }else{
-        this.eserciziService.loadEsercizzi();
+        this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.toastr.error('Esercizio non eliminato', 'Errore');
       }
     });

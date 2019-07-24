@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProgrammazioneService } from '../services/programmazione.service';
 import { EserciziService } from '../services/esercizzi.service';
 import { Programmazione } from '../model_body';
-import { Programmazioni, Esercizzi } from '../model';
+import { Programmazioni, Esercizzi, AuthUser } from '../model';
 @Component({
   selector: 'app-programmazione',
   templateUrl: './programmazione.component.html',
@@ -14,6 +14,7 @@ import { Programmazioni, Esercizzi } from '../model';
 })
 export class ProgrammazioneComponent implements OnInit {
 
+  authUser:AuthUser;
   programmazioni: Programmazioni[];
   programmazione: Programmazione;
   esercizzi: Esercizzi[];
@@ -38,6 +39,7 @@ export class ProgrammazioneComponent implements OnInit {
   ){}
 
   ngOnInit(){
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.route.params.subscribe(params => {
       this.id_programma = params['id_programma'];
     });
@@ -49,7 +51,7 @@ export class ProgrammazioneComponent implements OnInit {
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
-    this.eserciziService.loadEsercizzi();
+    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
   }
 
   addProgrammazione(){

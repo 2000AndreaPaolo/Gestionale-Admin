@@ -48,7 +48,7 @@ export class PrestazioneComponent implements OnInit {
     this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
       this.esercizzi = data;
     });
-    this.eserciziService.loadEsercizzi();
+    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
   }
 
   openPopUp(id_prestazione: number, conten: any) {
