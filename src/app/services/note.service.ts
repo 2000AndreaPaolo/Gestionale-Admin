@@ -24,8 +24,9 @@ export class NoteService {
     return this.note.asObservable();
   }
 
-  loadNote(): void {
-    this.http.get<Note[]>('/admin/note').subscribe(res => this.note.next(res));
+  loadNote(id_coach:number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Note[]>('/admin/get/note', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.note.next(res));
   }
 
   addNote(note: Nota){

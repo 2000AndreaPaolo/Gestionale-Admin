@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { NoteService } from '../services/note.service';
 import { AtletiService } from '../services/atleti.service';
-import { Note, Atleti } from '../model';
+import { Note, Atleti, AuthUser } from '../model';
 import { Nota } from '../model_body';
 @Component({
   selector: 'app-note',
@@ -13,6 +13,7 @@ import { Nota } from '../model_body';
 })
 export class NoteComponent implements OnInit {
 
+  authUser:AuthUser;
   note: Note[];
   nota: Nota;
   atleti: Atleti[];
@@ -29,15 +30,16 @@ export class NoteComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.nota = new Nota();
     this.noteService.getNote().subscribe((data: Note[]) => {
       this.note = data;
     });
-    this.noteService.loadNote();
+    this.noteService.loadNote(this.authUser.id_coach);
     this.atletiService.getAtleti().subscribe((data: Atleti[]) => {
       this.atleti = data;
     });
-    this.atletiService.loadAtleti();
+    this.atletiService.loadAtleti(this.authUser.id_coach);
   }
 
   openPopUp(id_note: number, conten: any) {
@@ -62,11 +64,11 @@ export class NoteComponent implements OnInit {
     this.nota.note = this.note_;
 		this.noteService.addNote(this.nota).subscribe((data) => {
 			if(data['code'] == 200){
-          this.noteService.loadNote();
+          this.noteService.loadNote(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Nota aggiunta con successo', 'Successo');
 			  }else{
-          this.noteService.loadNote();
+          this.noteService.loadNote(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Nota non aggiunta', 'Errore');
 			  }
@@ -79,11 +81,11 @@ export class NoteComponent implements OnInit {
     this.nota.note = this.note_;
 		this.noteService.modifyNote(this.nota).subscribe((data) => {
 			if(data['code'] == 200){
-          this.noteService.loadNote();
+          this.noteService.loadNote(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Nota modificata con successo', 'Successo');
 			  }else{
-          this.noteService.loadNote();
+          this.noteService.loadNote(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Nota non modificata', 'Errore');
 			  }
@@ -93,11 +95,11 @@ export class NoteComponent implements OnInit {
   deleteNote(id_note:number){
     this.noteService.deletNote(id_note).subscribe((data) => {
 			if(data['code'] == 200){
-				this.noteService.loadNote();
+				this.noteService.loadNote(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Nota eliminata con successo', 'Successo');
 			  }else{
-          this.noteService.loadNote();
+          this.noteService.loadNote(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Nota non eliminata', 'Errore');
 			  }
