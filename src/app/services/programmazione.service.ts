@@ -23,8 +23,9 @@ export class ProgrammazioneService {
     return this.programmazioni.asObservable();
   }
 
-  loadProgrammazioni(): void {
-    this.http.get<Programmazioni[]>('/admin/programmazione').subscribe(res => this.programmazioni.next(res));
+  loadProgrammazioni(id_programma:number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Programmazioni[]>('/admin/get/programmazione', JSON.stringify(id_programma), { headers: headers }).subscribe(res => this.programmazioni.next(res));
   }
 
   addProgrammazione(programmazione: Programmazione){

@@ -43,15 +43,9 @@ export class ProgrammazioneComponent implements OnInit {
     });
     this.programmazione = new Programmazione();
     this.programmazioneService.getProgrammazioni().subscribe((data:Programmazioni[]) => {
-      let appoggio: any[] = [];
-      for(let p of data){
-        if(p.id_programma == this.id_programma){
-          appoggio.push(p);
-        }
-      }
-      this.programmazioni = appoggio;
+      this.programmazioni=data;
     });
-    this.programmazioneService.loadProgrammazioni();
+    this.programmazioneService.loadProgrammazioni(this.id_programma);
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
@@ -70,11 +64,11 @@ export class ProgrammazioneComponent implements OnInit {
     this.programmazione.note = this.note;
     this.programmazioneService.addProgrammazione(this.programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Programmazione aggiunta con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programmazione non aggiunta', 'Errore');
 			  }
@@ -94,11 +88,11 @@ export class ProgrammazioneComponent implements OnInit {
     this.programmazione.note = this.note;
     this.programmazioneService.modifyProgrammazione(this.programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Programmazione modificata con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programmazione non modificata', 'Errore');
 			}
@@ -108,11 +102,11 @@ export class ProgrammazioneComponent implements OnInit {
   deleteProgrammazione(id_programmazione:number){
     this.programmazioneService.deleteProgrammazione(id_programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
-				this.toastr.success('programmazione liminata con successo', 'Successo');
+				this.toastr.success('programmazione eliminata con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni();
+				this.programmazioneService.loadProgrammazioni(this.id_programma);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('programmazione non eliminata', 'Errore');
 			}
