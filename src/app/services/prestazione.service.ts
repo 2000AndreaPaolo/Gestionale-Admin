@@ -24,8 +24,9 @@ export class PrestazioneService {
     return this.prestazione.asObservable();
   }
 
-  loadPrestazione(): void {
-    this.http.get<Prestazioni[]>('/admin/prestazione').subscribe(res => this.prestazione.next(res));
+  loadPrestazione(id_coach:number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Prestazioni[]>('/admin/get/prestazione', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.prestazione.next(res));
   }
 
   addPrestazione(prestazione: Prestazione){

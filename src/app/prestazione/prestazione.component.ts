@@ -5,8 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { PrestazioneService } from '../services/prestazione.service';
 import { AtletiService } from '../services/atleti.service';
 import { EserciziService } from '../services/esercizzi.service';
-import { Pesi, Atleti, Esercizzi, Prestazioni } from '../model';
-import { Peso, Prestazione } from '../model_body';
+import { Atleti, Esercizzi, Prestazioni, AuthUser } from '../model';
+import { Prestazione } from '../model_body';
 @Component({
   selector: 'app-prestazione',
   templateUrl: './prestazione.component.html',
@@ -14,6 +14,7 @@ import { Peso, Prestazione } from '../model_body';
 })
 export class PrestazioneComponent implements OnInit {
 
+  authUser:AuthUser;
   prestazioni: Prestazioni[];
   prestazione: Prestazione;
   atleti: Atleti[];
@@ -34,15 +35,16 @@ export class PrestazioneComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.prestazione = new Prestazione();
     this.prestazioneService.getPrestazione().subscribe((data: Prestazioni[]) => {
       this.prestazioni = data;
     });
-    this.prestazioneService.loadPrestazione();
+    this.prestazioneService.loadPrestazione(this.authUser.id_coach);
     this.atletiService.getAtleti().subscribe((data: Atleti[]) => {
       this.atleti = data;
     });
-    this.atletiService.loadAtleti();
+    this.atletiService.loadAtleti(this.authUser.id_coach);
     this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
       this.esercizzi = data;
     });
@@ -77,11 +79,11 @@ export class PrestazioneComponent implements OnInit {
     this.prestazione.id_esercizio = this.id_esercizio;
 		this.prestazioneService.addPrestazione(this.prestazione).subscribe((data) => {
 			if(data['code'] == 200){
-          this.prestazioneService.loadPrestazione();
+          this.prestazioneService.loadPrestazione(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Prestazione aggiunta con successo', 'Successo');
 			  }else{
-          this.prestazioneService.loadPrestazione();
+          this.prestazioneService.loadPrestazione(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Prestazione non aggiunta', 'Errore');
 			  }
@@ -96,11 +98,11 @@ export class PrestazioneComponent implements OnInit {
     this.prestazione.id_esercizio = this.id_esercizio;
 		this.prestazioneService.modifyPrestazione(this.prestazione).subscribe((data) => {
 			if(data['code'] == 200){
-          this.prestazioneService.loadPrestazione();
+          this.prestazioneService.loadPrestazione(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.success('Prestazione modificata con successo', 'Successo');
 			  }else{
-          this.prestazioneService.loadPrestazione();
+          this.prestazioneService.loadPrestazione(this.authUser.id_coach);
           this.modalService.dismissAll('Reason');
           this.toastr.error('Prestazione non modificata', 'Errore');
 			  }
@@ -110,11 +112,11 @@ export class PrestazioneComponent implements OnInit {
   deletePrestazione(id_prestazione:number){
     this.prestazioneService.deletPrestazione(id_prestazione).subscribe((data) => {
 			if(data['code'] == 200){
-        this.prestazioneService.loadPrestazione();
+        this.prestazioneService.loadPrestazione(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Prestazione eliminata con successo', 'Successo');
 			}else{
-        this.prestazioneService.loadPrestazione();
+        this.prestazioneService.loadPrestazione(this.authUser.id_coach);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Prestazione non eliminata', 'Errore');
 			}
