@@ -18,8 +18,9 @@ export class CestinoService {
     return this.atleti.asObservable();
   }
 
-  loadAtleti_eliminati(): void {
-    this.http.get<Atleti[]>('/admin/deleted/atleti').subscribe(res => this.atleti.next(res));
+  loadAtleti_eliminati(id_coach: number): void {
+    let headers = new HttpHeaders({});
+    this.http.post<Atleti[]>('/admin/deleted/atleti/get', JSON.stringify(id_coach), { headers: headers }).subscribe(res => this.atleti.next(res));
   }
 
   restoreAtleta(id_atleta: number){
