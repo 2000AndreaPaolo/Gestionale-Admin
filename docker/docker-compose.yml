@@ -12,9 +12,9 @@ services:
       - 80
     labels:
       - "traefik.port=80"
-      - 'traefik.backend=gestionale-clienti'
+      - 'traefik.backend=gestionale-admin'
       - 'traefik.enable=true'
-      - "traefik.frontend.rule=Host:localhost"
+      - "traefik.frontend.rule=Host:admin.localhost"
 
 networks:
   proxy:
