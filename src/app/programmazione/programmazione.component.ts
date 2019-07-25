@@ -120,6 +120,7 @@ export class ProgrammazioneComponent implements OnInit {
 			this.ripetizioni = null;
       this.note = '';
       this.carico = null;
+      this.data = null;
 			this.modalService.open(conten, { ariaLabelledBy: 'modal-basic-titile' });
 		}
   }

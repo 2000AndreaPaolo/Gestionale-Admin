@@ -51,6 +51,7 @@ export class ProgrammaComponent implements OnInit {
     this.programma.data_inizio = this.data_inizio;
     this.programma.data_fine = this.data_fine;
     this.programma.note = this.note;
+    this.programma.id_coach = this.authUser.id_coach;
     this.programmaService.addProgramma(this.programma).subscribe((data) => {
       if(data['code'] == 200){
         this.programmaService.loadProgrammi(this.authUser.id_coach);
@@ -70,6 +71,7 @@ export class ProgrammaComponent implements OnInit {
     this.programma.data_inizio = this.data_inizio;
     this.programma.data_fine = this.data_fine;
     this.programma.note = this.note;
+    this.programma.id_coach = this.authUser.id_coach;
     this.programmaService.modifyProgramma(this.programma).subscribe((data) => {
       if(data['code'] == 200){
         this.programmaService.loadProgrammi(this.authUser.id_coach);

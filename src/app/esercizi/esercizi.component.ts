@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EserciziService } from '../services/esercizzi.service';
 import { Esercizzi } from '../model';
 import { Esercizio } from '../model_body';
-import { GruppiMuscolari, AuthUser } from '../model';
+import { AuthUser } from '../model';
 @Component({
   selector: 'app-esercizi',
   templateUrl: './esercizi.component.html',
@@ -16,8 +16,6 @@ export class EserciziComponent implements OnInit {
   authUser:AuthUser;
   esercizzi:Esercizzi[];
   esercizio:Esercizio;
-  gruppiMuscolari:GruppiMuscolari[];
-  id_gruppoMuscolare: number;
   id_esercizio:number;
   descrizione:string;
   page:number = 1;
@@ -34,11 +32,6 @@ export class EserciziComponent implements OnInit {
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
-    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
-    this.eserciziService.getGruppoMuscolare().subscribe((data:GruppiMuscolari[]) => {
-      this.gruppiMuscolari = data;
-    });
-    this.eserciziService.loadGruppoMuscolare();
   }
 
   openPopUp(id_esercizio:number, conten:any){
@@ -49,7 +42,6 @@ export class EserciziComponent implements OnInit {
           this.descrizione = esercizio.descrizione;
           this.esercizio.descrizione = this.descrizione;
           this.esercizio.id_esercizio = this.id_esercizio;
-          this.id_gruppoMuscolare = esercizio.id_gruppoMuscolare;
         }
       }
       this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
@@ -59,13 +51,9 @@ export class EserciziComponent implements OnInit {
     }
   }
 
-  onChangeGruppoMuscolare(id_gruppoMuscolare:any){
-    this.id_gruppoMuscolare = id_gruppoMuscolare;
-  }
-
   addEsercizio(){
     this.esercizio.descrizione = this.descrizione;
-    this.esercizio.id_gruppoMuscolare = this.id_gruppoMuscolare;
+    this.esercizio.id_coach = this.authUser.id_coach;
     this.eserciziService.addEsercizio(this.esercizio).subscribe((data) => {
       if(data['code'] == 200){
         this.eserciziService.loadEsercizzi(this.authUser.id_coach);
@@ -82,7 +70,6 @@ export class EserciziComponent implements OnInit {
   modifyEsercizio(){
     this.esercizio.descrizione = this.descrizione;
     this.esercizio.id_esercizio = this.id_esercizio;
-    this.esercizio.id_gruppoMuscolare = this.id_gruppoMuscolare;
     this.eserciziService.modifysercizio(this.esercizio).subscribe((data) => {
       if(data['code'] == 200){
         this.eserciziService.loadEsercizzi(this.authUser.id_coach);

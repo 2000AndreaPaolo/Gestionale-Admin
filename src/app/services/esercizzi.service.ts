@@ -9,18 +9,15 @@ import '../model';
 import '../model_body';
 import { Esercizzi } from '../model';
 import { Esercizio } from '../model_body';
-import { GruppiMuscolari } from '../model';
 @Injectable({
   providedIn: 'root'
 })
 export class EserciziService {
 
   private esercizzi:Subject<Esercizzi[]>;
-  private gruppiMuscolari:Subject<GruppiMuscolari[]>;
 
   constructor(private http: HttpClient){
     this.esercizzi = new Subject<Esercizzi[]>();
-    this.gruppiMuscolari = new Subject<GruppiMuscolari[]>();
   }
 
   getEsercizzi(): Observable<Esercizzi[]> {
@@ -45,13 +42,5 @@ export class EserciziService {
   deletesercizio(id_esercizio: number){
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/esercizio`, { body: { headers: headers, id_esercizio: id_esercizio } });
-  }
-
-  getGruppoMuscolare(): Observable<GruppiMuscolari[]> {
-    return this.gruppiMuscolari.asObservable();
-  }
-
-  loadGruppoMuscolare(): void {
-    this.http.get<GruppiMuscolari[]>('/admin/gruppomuscolare').subscribe(res => this.gruppiMuscolari.next(res));
   }
 }

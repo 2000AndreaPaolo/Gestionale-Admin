@@ -22,12 +22,7 @@ export class Specializzazioni{
 export class Esercizzi{
     id_esercizio: number;
     descrizione: string;
-    id_gruppoMuscolare: number;
-}
-
-export class GruppiMuscolari{
-    id_gruppoMuscolare: number;
-    descrizione: string;
+    id_coach: number;
 }
 
 export class Schede{
@@ -66,6 +61,7 @@ export class Programmi{
     data_inizio: Date;
     data_fine: Date;
     note: string;
+    id_coach: number;
 };
 
 export class Programmazioni{

@@ -15,7 +15,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  <tr *ngFor="let programmazione of programmazioni | paginate: { itemsPerPage: 20, currentPage: page }">
+		  <tr *ngFor="let programmazione of programmazioni">
 				<td class="center_object">{{programmazione.data}}</td>
 				<td class="center_object">{{programmazione.nome_esercizio}}</td>
 				<td class="center_object">{{programmazione.serie}}</td>
@@ -30,9 +30,6 @@
 		  </tr>
 		</tbody>
 	  </table>
-	  <div class="pagination">
-		<pagination-controls (pageChange)="page = $event"></pagination-controls>
-	  </div>
 </div>
 
 <ng-template #programmazione_add_modify let-modal>
