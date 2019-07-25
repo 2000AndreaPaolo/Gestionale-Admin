@@ -22,8 +22,6 @@ export class ProgrammazioneComponent implements OnInit {
   id_programma: number;
   id_programmazione: number;
   page: number = 1;
-  settimana: number;
-  giorno: number;
   serie: number;
   ripetizioni: number;
   carico:number;
@@ -57,8 +55,6 @@ export class ProgrammazioneComponent implements OnInit {
   addProgrammazione(){
     this.programmazione.data = this.data;
     this.programmazione.id_programma = this.id_programma;
-    this.programmazione.settimana = this.settimana;
-    this.programmazione.giorno = this.giorno;
     this.programmazione.id_esercizio = this.id_esercizio;
     this.programmazione.serie = this.serie;
     this.programmazione.ripetizioni = this. ripetizioni;
@@ -80,9 +76,7 @@ export class ProgrammazioneComponent implements OnInit {
   modifyProgrammazione(){
     this.programmazione.data = this.data;
     this.programmazione.id_programmazione = this.id_programmazione;
-    this.programmazione.settimana = this.settimana;
     this.programmazione.id_programma = this.id_programma;
-    this.programmazione.giorno = this.giorno;
     this.programmazione.id_esercizio = this.id_esercizio;
     this.programmazione.serie = this.serie;
     this.programmazione.ripetizioni = this.ripetizioni;
@@ -121,8 +115,6 @@ export class ProgrammazioneComponent implements OnInit {
 			this.findById_programmazione(this.id_programmazione);
 			this.modalService.open(conten, { ariaLabelledBy: 'modal-basic-titile' });
 		} else {
-      this.settimana = null;
-			this.giorno = null;
 			this.id_esercizio = null;
 			this.serie = null;
 			this.ripetizioni = null;
@@ -145,14 +137,12 @@ export class ProgrammazioneComponent implements OnInit {
     for(let programmazione of this.programmazioni){
       if(programmazione.id_programmazione == id_programmazione){
         this.id_programma = programmazione.id_programma;
-        this.giorno = programmazione.giorno;
         this.id_esercizio = programmazione.id_esercizio;
         this.serie = programmazione.serie;
         this.ripetizioni = programmazione.ripetizioni;
         this.note = programmazione.note;
         this.carico = programmazione.carico;
         this.data = programmazione.data;
-        this.settimana = programmazione.settimana;
       }
     }
   }

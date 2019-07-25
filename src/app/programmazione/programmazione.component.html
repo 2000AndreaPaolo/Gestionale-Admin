@@ -6,8 +6,6 @@
 		<thead class="thead-dark">
 		  <tr>
 				<th class="center_object">Data</th>
-				<th class="center_object">Settimana</th>
-				<th class="center_object">Giorno</th>
 				<th class="center_object">Esercizio</th>
 				<th class="center_object">Serie</th>
 				<th class="center_object">Ripetizioni</th>
@@ -19,8 +17,6 @@
 		<tbody>
 		  <tr *ngFor="let programmazione of programmazioni | paginate: { itemsPerPage: 20, currentPage: page }">
 				<td class="center_object">{{programmazione.data}}</td>
-				<td class="center_object">{{programmazione.settimana}}</td>
-				<td class="center_object">{{programmazione.giorno}}</td>
 				<td class="center_object">{{programmazione.nome_esercizio}}</td>
 				<td class="center_object">{{programmazione.serie}}</td>
 				<td class="center_object">{{programmazione.ripetizioni}}</td>
@@ -54,18 +50,6 @@
 				<div class="input-group">
 					<input type="date" class="form-control" [(ngModel)]="data" [ngModelOptions]="{standalone: true}" required>
 				</div>
-			</div>
-			<div class="form-group">
-				<label>Settimana</label>
-				<div class="input-group">
-					<input type="number" class="form-control" [(ngModel)]="settimana" [ngModelOptions]="{standalone: true}" required>
-				</div>
-			</div>
-			<div class="form-group">
-			  <label>Giorno</label>
-			  <div class="input-group">
-				  <input type="number" class="form-control" [(ngModel)]="giorno" [ngModelOptions]="{standalone: true}" required>
-			  </div>
 			</div>
 			<div class="form-group">
 				  <label >Esercizio</label>
