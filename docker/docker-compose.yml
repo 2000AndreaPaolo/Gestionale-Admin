@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   nginx:
@@ -14,7 +14,7 @@ services:
       - "traefik.port=80"
       - 'traefik.backend=gestionale-admin'
       - 'traefik.enable=true'
-      - "traefik.frontend.rule=Host:admin.localhost"
+      - "traefik.frontend.rule=Host:admin.tridentescarface.com"
 
 networks:
   proxy:
