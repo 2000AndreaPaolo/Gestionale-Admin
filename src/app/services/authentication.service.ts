@@ -12,15 +12,22 @@ import { Auth } from '../model_body';
 export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<AuthUser>;
+  private localUserSubject: BehaviorSubject<AuthUser>;
   public currentUser: Observable<AuthUser>;
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.localUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(localStorage.getItem('currentAdmin')));
+    this.currentUser = this.localUserSubject.asObservable();
   }
 
   currentUserValue(): AuthUser {
     return this.currentUserSubject.value;
+  }
+
+  localUserValue(): AuthUser {
+    return this.localUserSubject.value;
   }
 
   login(auth:Auth): Observable<boolean> {
@@ -32,6 +39,7 @@ export class AuthenticationService {
       map((user: AuthUser ) => {
         if (user.id_coach) {
           sessionStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentAdmin', JSON.stringify(user));
           this.currentUserSubject.next(user);
           return true;
         }else{
