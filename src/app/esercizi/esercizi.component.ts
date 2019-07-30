@@ -32,6 +32,7 @@ export class EserciziComponent implements OnInit {
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
+    this.eserciziService.loadEsercizzi(this.authUser.id_coach);
   }
 
   openPopUp(id_esercizio:number, conten:any){
