@@ -30,6 +30,7 @@ export class Scheda{
     data_inizio: Date;
     data_fine: Date;
     id_atleta: number;
+    id_coach: number;
 }
 
 export class Progressione{

@@ -15,7 +15,7 @@ import { Scheda } from '../model_body';
 export class SchedaComponent implements OnInit {
 
 	authUser:AuthUser;
-	schede: Scheda[];
+	schede: Schede[];
 	scheda: Scheda;
 	atleti: Atleti[];
 	page: number = 1;
@@ -70,6 +70,7 @@ export class SchedaComponent implements OnInit {
 		this.scheda.data_fine = this.data_fine;
 		this.scheda.durata = this.durata;
 		this.scheda.id_atleta = this.id_atleta;
+		this.scheda.id_coach = this.authUser.id_coach;
 		this.schedaService.addScheda(this.scheda).subscribe((data) => {
 			if(data['code'] == 200){
 				this.schedaService.loadSchede(this.authUser.id_coach);
@@ -90,6 +91,7 @@ export class SchedaComponent implements OnInit {
 		this.scheda.data_fine = this.data_fine;
 		this.scheda.durata = this.durata;
 		this.scheda.id_atleta = this.id_atleta;
+		this.scheda.id_coach = this.authUser.id_coach;
 		this.schedaService.modifyScheda(this.scheda).subscribe((data) => {
 			if(data['code'] == 200){
 				this.schedaService.loadSchede(this.authUser.id_coach);
