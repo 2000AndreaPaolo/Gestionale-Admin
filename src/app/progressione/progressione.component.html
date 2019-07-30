@@ -14,7 +14,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  <tr *ngFor="let progressione of progressioni | paginate: { itemsPerPage: 20, currentPage: page }">
+		  <tr *ngFor="let progressione of progressioni">
 			<td class="center_object">{{progressione.giorno}}</td>
 			<td class="center_object">{{progressione.nome_esercizio}}</td>
 			<td class="center_object">{{progressione.serie}}</td>
@@ -27,9 +27,6 @@
 		  </tr>
 		</tbody>
 	  </table>
-	  <div class="pagination">
-		<pagination-controls (pageChange)="page = $event"></pagination-controls>
-	  </div>
 </div>
 
 <ng-template #progressione_add_modify let-modal>

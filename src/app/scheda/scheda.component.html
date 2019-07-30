@@ -5,7 +5,6 @@
   <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
       <tr>
-        <th class="center_object">#</th>
         <th class="center_object">Nome</th>
         <th class="center_object">Data inizio</th>
         <th class="center_object">Data Fine</th>
@@ -15,7 +14,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let scheda of schede | paginate: { itemsPerPage: 20, currentPage: page }">
-        <td class="center_object">{{scheda.id_scheda}}</td>
         <td class="center_object">{{scheda.nome}}</td>
         <td class="center_object">{{scheda.data_inizio}}</td>
         <td class="center_object">{{scheda.data_fine}}</td>

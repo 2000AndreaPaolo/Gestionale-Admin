@@ -5,7 +5,6 @@
   <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
       <tr>
-        <th class="center_object">#</th>
         <th class="center_object">Atleta</th>
         <th class="center_object">Peso</th>
         <th class="center_object">Data</th>
@@ -15,7 +14,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let peso of pesi | paginate: { itemsPerPage: 20, currentPage: page }">
-        <td class="center_object">{{peso.id_peso}}</td>
         <td class="center_object">{{peso.nome_atleta}} {{peso.cognome_atleta}}</td>
         <td class="center_object">{{peso.peso}}</td>
         <td class="center_object">{{peso.data}}</td>

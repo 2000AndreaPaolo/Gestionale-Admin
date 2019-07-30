@@ -5,7 +5,6 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
-          <th class="center_object">#</th>
           <th class="center_object">Atleta</th>
           <th class="center_object">Pettorale</th>
           <th class="center_object">Addome</th>
@@ -18,7 +17,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let plicometria of plicometrie | paginate: { itemsPerPage: 20, currentPage: page }">
-            <td class="center_object">{{plicometria.id_plicometria}}</td>
             <td class="center_object">{{plicometria.nome_atleta}} {{plicometria.cognome_atleta}}</td>
             <td class="center_object">{{plicometria.pettorale}}</td>
             <td class="center_object">{{plicometria.addome}}</td>

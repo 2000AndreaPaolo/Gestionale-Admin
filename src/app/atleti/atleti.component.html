@@ -5,7 +5,6 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
-                <th class="center_object">#</th>
                 <th class="center_object">Nome</th>
                 <th class="center_object">Cognome</th>
                 <th class="center_object">Data nascita</th>
@@ -16,7 +15,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let atleta of atleti">
-                <td class="center_object">{{atleta.id_atleta}}</td>
                 <td class="center_object">{{atleta.nome}}</td>
                 <td class="center_object">{{atleta.cognome}}</td>
                 <td class="center_object">{{atleta.data_nascita}}</td>

@@ -5,14 +5,12 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
-          <th class="center_object">#</th>
           <th class="center_object">Descrizione</th>
           <th class="center_object">Azioni</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let esercizio of esercizzi | paginate: { itemsPerPage: 20, currentPage: page }">
-          <td class="center_object">{{esercizio.id_esercizio}}</td>
           <td class="center_object">{{esercizio.descrizione}}</td>
           <td class="center_object">
               <button #modifica class="btn btn-primary fa fa-edit" value="{{esercizio.id_esercizio}}" (click)="openPopUp(modifica.value, esercizzi_add_modify)" ngbTooltip="Modifica esercizio"></button>
