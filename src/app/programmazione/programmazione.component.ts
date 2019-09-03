@@ -27,6 +27,7 @@ export class ProgrammazioneComponent implements OnInit {
   carico:number;
   note: string;
   data: Date;
+  filtro_data: Date;
 
   constructor(
     private route: ActivatedRoute, 
@@ -146,5 +147,19 @@ export class ProgrammazioneComponent implements OnInit {
         this.data = programmazione.data;
       }
     }
+  }
+
+  onChangeData(){
+    let appoggio = [];
+    this.programmazioni = [];
+    console.log(this.id_programma);
+    this.programmazioneService.getProgrammazione(this.id_programma).subscribe((data: Programmazioni[]) => {
+      for(let dato of data){
+        if(dato.data == this.filtro_data){
+          appoggio.push(dato);
+        }
+      }
+      this.programmazioni = appoggio;
+    });
   }
 }

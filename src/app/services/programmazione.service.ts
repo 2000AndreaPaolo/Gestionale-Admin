@@ -42,4 +42,9 @@ export class ProgrammazioneService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/programmazione`, { body: { headers: headers, id_programmazione: id_programmazione } });
   }
+
+  getProgrammazione(id_programma: number){
+    let headers = new HttpHeaders({});
+    return this.http.post('/admin/get/programmazione', JSON.stringify(id_programma), { headers: headers });
+  }
 }
