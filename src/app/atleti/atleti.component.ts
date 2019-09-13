@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
+import { PesoService } from '../services/peso.service';
 import { NoteService } from '../services/note.service';
 import { Atleti, Specializzazioni, AuthUser } from '../model';
-import { Atleta, Plicometria, Nota } from '../model_body';
+import { Atleta, Plicometria, Nota, Peso } from '../model_body';
 @Component({
   selector: 'app-atleti',
   templateUrl: './atleti.component.html',
@@ -23,6 +24,7 @@ export class AtletiComponent implements OnInit {
 
   plicometria:Plicometria;
   nota:Nota;
+  peso:Peso;
 
   pageSchede: number = 1;
 
@@ -34,8 +36,9 @@ export class AtletiComponent implements OnInit {
     private atletiService:AtletiService, 
     private modalService: NgbModal, 
     private toastr: ToastrService, 
-    private plicometriaService:PlicometriaService,
-    private noteService:NoteService
+    private plicometriaService: PlicometriaService,
+    private noteService: NoteService,
+    private pesoService: PesoService
     ){}
 
   ngOnInit(){
@@ -53,6 +56,7 @@ export class AtletiComponent implements OnInit {
 
     this.plicometria = new Plicometria();
     this.nota = new Nota();
+    this.peso = new Peso();
   }
 
   openPopUp(id_atleta:number, conten:any){
@@ -151,6 +155,15 @@ export class AtletiComponent implements OnInit {
         this.plicometria.gamba = null;
         this.plicometria.data_rilevazione = null;
         this.plicometria.percentuale = null;
+      }
+    });
+    this.pesoService.lastPeso(id_atleta).subscribe((data: Peso) => {
+      if(data[0] != null){
+        this.peso = data[0];
+      }else{
+        this.peso.peso = null;
+        this.peso.note = '';
+        this.peso.data = null;
       }
     });
     this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});

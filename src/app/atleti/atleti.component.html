@@ -106,6 +106,28 @@
                 </table>
             </div>
         </ng-template>
+        <div *ngIf="peso.peso != null; then peso_pieno"></div>
+        <ng-template #peso_pieno>
+            <div class="separazione">
+                <h3 class="title"> Ultimo peso</h3>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="center_object">Peso</th>
+                            <th class="center_object">Nota</th>
+                            <th class="center_object">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center_object">{{peso.peso}}</td>
+                            <td class="center_object">{{peso.note}}</td>
+                            <td class="center_object">{{peso.data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
         <div *ngIf="plicometria.pettorale != ''; then plicometria_pieno">
         </div>
         <ng-template #plicometria_pieno>

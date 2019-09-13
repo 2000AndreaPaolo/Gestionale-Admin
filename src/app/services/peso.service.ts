@@ -43,4 +43,9 @@ export class PesoService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/peso`, { body: { headers: headers, id_peso: id_peso } });
   }
+
+  lastPeso(id_atleta: number){
+    let headers = new HttpHeaders({});
+    return this.http.post('/admin/peso/last', JSON.stringify(id_atleta), { headers: headers });
+  }
 }
