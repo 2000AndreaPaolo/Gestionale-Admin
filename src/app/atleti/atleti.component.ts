@@ -4,8 +4,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
-import { Atleti, Plicometrie, Specializzazioni, AuthUser } from '../model';
-import { Atleta } from '../model_body';
+import { NoteService } from '../services/note.service';
+import { Atleti, Specializzazioni, AuthUser } from '../model';
+import { Atleta, Plicometria, Nota } from '../model_body';
 @Component({
   selector: 'app-atleti',
   templateUrl: './atleti.component.html',
@@ -17,11 +18,12 @@ export class AtletiComponent implements OnInit {
   atleti:Atleti[];
   specializzazioni:Specializzazioni[];
   atleta:Atleta;
-  plicometrie:Plicometrie[];
   id_atleta:number = null;
   id_specializzazione:number = null;
 
-  pagePliche: number = 1;
+  plicometria:Plicometria;
+  nota:Nota;
+
   pageSchede: number = 1;
 
   nome:string  = '';
@@ -32,7 +34,8 @@ export class AtletiComponent implements OnInit {
     private atletiService:AtletiService, 
     private modalService: NgbModal, 
     private toastr: ToastrService, 
-    private plicometriaService:PlicometriaService
+    private plicometriaService:PlicometriaService,
+    private noteService:NoteService
     ){}
 
   ngOnInit(){
@@ -42,16 +45,14 @@ export class AtletiComponent implements OnInit {
       this.atleti = data;
     });
     this.atletiService.loadAtleti(this.authUser.id_coach);
-
-    this.plicometriaService.getPlicometrie().subscribe((data:Plicometrie[]) => {
-      this.plicometrie = data;
-    });
-    this.plicometriaService.loadPlicometrie(this.authUser.id_coach); 
     
     this.atletiService.getSpceializzazione().subscribe((data:Specializzazioni[]) => {
       this.specializzazioni = data;
     });
     this.atletiService.loadSpecializzazioni();
+
+    this.plicometria = new Plicometria();
+    this.nota = new Nota();
   }
 
   openPopUp(id_atleta:number, conten:any){
@@ -133,13 +134,25 @@ export class AtletiComponent implements OnInit {
   }
 
   view(id_atleta:number, conten){
-    let appoggio_pliche:Plicometrie[] = [];
-    for(let plicometria of this.plicometrie){
-      if(plicometria.id_atleta == id_atleta){
-        appoggio_pliche.push(plicometria);
+    this.noteService.lastNote(id_atleta).subscribe((data: Nota) => {
+      if(data[0] != null){
+        this.nota = data[0];
+      }else{
+        this.nota.note = '';
+        this.nota.data = null;
       }
-    }
-    this.plicometrie = appoggio_pliche;
+    });
+    this.plicometriaService.lastPlicometria(id_atleta).subscribe((data: Plicometria) => {
+      if(data[0] != null){
+        this.plicometria = data[0];
+      }else{
+        this.plicometria.pettorale = null;
+        this.plicometria.addome = null;
+        this.plicometria.gamba = null;
+        this.plicometria.data_rilevazione = null;
+        this.plicometria.percentuale = null;
+      }
+    });
     this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
   }
 

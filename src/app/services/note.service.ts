@@ -43,4 +43,9 @@ export class NoteService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/note`, { body: { headers: headers, id_note: id_note } });
   }
+
+  lastNote(id_atleta: number){
+    let headers  = new HttpHeaders({});
+    return this.http.post('/admin/note/last', JSON.stringify(id_atleta), { headers: headers });
+  }
 }

@@ -43,4 +43,9 @@ export class PlicometriaService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/plicometria`, { body: { headers: headers, id_plicometria: id_plicometria } });
   }
+
+  lastPlicometria(id_atleta: number){
+    let headers  = new HttpHeaders({});
+    return this.http.post('/admin/plicometria/last', JSON.stringify(id_atleta), { headers: headers });
+  }
 }

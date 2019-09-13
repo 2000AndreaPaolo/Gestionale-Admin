@@ -78,39 +78,61 @@
         </div>
 </ng-template>
 
-<ng-template #view_atleta let-modal>
+<ng-template #view_atleta>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">
             Info atleta
         </h4>
     </div>
     <div class="modal-body">
-        <div class="separazione">
-            <h3 class="title">Lista delle plicometrie</h3>
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="center_object">Pettorale</th>
-                        <th class="center_object">Addome</th>
-                        <th class="center_object">Gamba</th>
-                        <th class="center_object">Percentuale</th>
-                        <th class="center_object">Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let plicometria of plicometrie | paginate: { itemsPerPage: 5, currentPage: pagePliche }">
-                        <td class="center_object">{{plicometria.pettorale}}</td>
-                        <td class="center_object">{{plicometria.addome}}</td>
-                        <td class="center_object">{{plicometria.gamba}}</td>
-                        <td class="center_object">{{plicometria.percentuale}}%</td>
-                        <td class="center_object">{{plicometria.data_rilevazione}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="pagination">
-                    <pagination-controls (pageChange)="pagePliche = $event"></pagination-controls>
-            </div>
+        <div *ngIf="nota.nota != ''; then nota_pieno">
         </div>
+        <ng-template #nota_pieno>
+            <div class="separazione">
+                <h3 class="title"> Ultima nota</h3>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="center_object">Nota</th>
+                            <th class="center_object">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center_object">{{nota.note}}</td>
+                            <td class="center_object">{{nota.data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+        <div *ngIf="plicometria.pettorale != ''; then plicometria_pieno">
+        </div>
+        <ng-template #plicometria_pieno>
+            <div class="separazione">
+                <h3 class="title">Ultima plicometria</h3>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="center_object">Pettorale</th>
+                            <th class="center_object">Addome</th>
+                            <th class="center_object">Gamba</th>
+                            <th class="center_object">Percentuale</th>
+                            <th class="center_object">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center_object">{{plicometria.pettorale}}</td>
+                            <td class="center_object">{{plicometria.addome}}</td>
+                            <td class="center_object">{{plicometria.gamba}}</td>
+                            <td class="center_object">{{plicometria.percentuale}}%</td>
+                            <td class="center_object">{{plicometria.data_rilevazione}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Chiudi</button>
