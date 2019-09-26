@@ -42,7 +42,6 @@ export class AtletiService {
 
   addAtleta(atleta: Atleta){
     let headers = new HttpHeaders({});
-    console.log(atleta);
     return this.http.post('/admin/atleta', JSON.stringify(atleta), { headers: headers });
   }
 
@@ -58,7 +57,6 @@ export class AtletiService {
 
   clalcoEta(data_nascita){
     let timeDiff = Math.abs(Date.now() - data_nascita);
-    console.log(timeDiff);
     let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
     return age;
   }

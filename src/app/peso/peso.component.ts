@@ -113,5 +113,22 @@ export class PesoComponent implements OnInit {
   
   onChangeIdAtleta(id_atleta:any){
 		this.id_atleta = id_atleta;
-	}
+  }
+  
+  onChangeIdAtletaFilter(id_atleta:any){
+    let appoggio = [];
+    this.pesi = [];
+    this.pesoService.getPeso(this.authUser.id_coach).subscribe((data: Peso[]) => {
+      if(id_atleta == ''){
+        this.pesi = data;
+      }else{
+        for(let dato of data){
+          if(dato.id_atleta == id_atleta){
+            appoggio.push(dato);
+          }
+        }
+        this.pesi = appoggio;
+      }
+    });
+  }
 }

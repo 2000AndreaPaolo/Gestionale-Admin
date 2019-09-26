@@ -48,4 +48,9 @@ export class PesoService {
     let headers = new HttpHeaders({});
     return this.http.post('/admin/peso/last', JSON.stringify(id_atleta), { headers: headers });
   }
+
+  getPeso(id_coach:number){
+    let headers = new HttpHeaders({});
+    return this.http.post('/admin/get/peso', JSON.stringify(id_coach), { headers: headers });
+  }
 }

@@ -43,4 +43,9 @@ export class EserciziService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/esercizio`, { body: { headers: headers, id_esercizio: id_esercizio } });
   }
+
+  getEsercizi(id_coach:number){
+    let headers = new HttpHeaders({});
+    return this.http.post('/admin/get/esercizio', JSON.stringify(id_coach), { headers: headers });
+  }
 }

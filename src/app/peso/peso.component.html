@@ -1,7 +1,17 @@
 <app-main-nav></app-main-nav>
 <div class="container">
   <h3 class="title">Lista dei pesi</h3>
-  <button class="btn btn-success" type="button" id="addPeso" (click)="openPopUp(0, peso_add_modify)">Aggiungi peso</button>
+  <form>
+		<div class="form-group">
+			<div class="input-group">
+				<button class="btn btn-success" type="button" id="addPeso" (click)="openPopUp(0, peso_add_modify)">Aggiungi peso</button>
+        <select class="form-control" (change)="onChangeIdAtletaFilter($event.target.value)" [value]='id_atleta'>
+          <option value=""></option>
+          <option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+        </select>
+      </div>   
+		</div>
+	</form>
   <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
       <tr>

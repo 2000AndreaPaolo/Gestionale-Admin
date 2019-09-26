@@ -19,6 +19,7 @@ export class EserciziComponent implements OnInit {
   id_esercizio:number;
   descrizione:string;
   page:number = 1;
+  filtro_input:string;
 
   constructor(
     private eserciziService:EserciziService, 
@@ -93,6 +94,19 @@ export class EserciziComponent implements OnInit {
         this.eserciziService.loadEsercizzi(this.authUser.id_coach);
         this.toastr.error('Esercizio non eliminato', 'Errore');
       }
+    });
+  }
+
+  filter(){
+    let appoggio = [];
+    this.esercizzi = [];
+    this.eserciziService.getEsercizi(this.authUser.id_coach).subscribe((data: Esercizzi[]) => {
+      for(let dato of data){
+        if(dato.descrizione.includes(this.filtro_input)){
+          appoggio.push(dato);
+        }
+      }
+      this.esercizzi = appoggio;
     });
   }
 }

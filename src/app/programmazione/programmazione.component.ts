@@ -152,7 +152,6 @@ export class ProgrammazioneComponent implements OnInit {
   onChangeData(){
     let appoggio = [];
     this.programmazioni = [];
-    console.log(this.id_programma);
     this.programmazioneService.getProgrammazione(this.id_programma).subscribe((data: Programmazioni[]) => {
       for(let dato of data){
         if(dato.data == this.filtro_data){

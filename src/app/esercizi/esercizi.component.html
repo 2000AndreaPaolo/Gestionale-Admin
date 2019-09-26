@@ -1,7 +1,14 @@
 <app-main-nav></app-main-nav>
 <div class="container">
     <h3 class="title">Lista degli esercizzi</h3>
-    <button class="btn btn-success" type="button" id="addEsercizio" (click)="openPopUp(0, esercizzi_add_modify)">Aggiungi esercizio</button>
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <button class="btn btn-success" type="button" id="addEsercizio" (click)="openPopUp(0, esercizzi_add_modify)">Aggiungi esercizio</button>
+          <input type="text" class="form-control" [(ngModel)]="filtro_input" [ngModelOptions]="{standalone: true}" required (input)="filter()" >
+        </div>   
+      </div>
+    </form>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>

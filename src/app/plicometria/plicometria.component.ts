@@ -55,7 +55,6 @@ export class PlicometriaComponent implements OnInit {
         this.plicometria.percentuale = this.calcoloPercentuale(atleta.data_nascita);
       }
     }
-    console.log(this.plicometria);
     this.plicometriaService.addPlicometria(this.plicometria).subscribe((data) => {
       if(data['code'] == 200){
 				this.plicometriaService.loadPlicometrie(this.authUser.id_coach);

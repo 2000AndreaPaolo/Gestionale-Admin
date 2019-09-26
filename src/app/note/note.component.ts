@@ -21,6 +21,7 @@ export class NoteComponent implements OnInit {
   id_note: number;
   note_: string;
   page:number;
+  filtro_data: Date;
 
   constructor(
     private noteService: NoteService,
@@ -108,5 +109,18 @@ export class NoteComponent implements OnInit {
   
   onChangeIdAtleta(id_atleta:any){
 		this.id_atleta = id_atleta;
-	}
+  }
+  
+  onChangeData(){
+    let appoggio = [];
+    this.note = [];
+    this.noteService.getNota(this.authUser.id_coach).subscribe((data: Note[]) => {
+      for(let dato of data){
+        if(dato.data == this.filtro_data){
+          appoggio.push(dato);
+        }
+      }
+      this.note = appoggio;
+    });
+  }
 }
