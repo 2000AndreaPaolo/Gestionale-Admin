@@ -130,4 +130,16 @@ export class SchedaComponent implements OnInit {
 			}
 		}
 	}
+
+	onChangeId_atleta(id_atleta: number){
+		if(id_atleta == -1){
+			this.schedaService.loadSchede(this.authUser.id_coach);
+		}else{
+			this.schede = [];
+			this.schedaService.getScheda(id_atleta).subscribe((data: Schede[]) => {
+				this.schede = data;
+			});
+		}
+		
+	  }
 }

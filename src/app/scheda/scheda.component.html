@@ -1,7 +1,17 @@
 <app-main-nav></app-main-nav>
 <div class="container">
   <h3 class="title">Lista delle schede</h3>
-  <button class="btn btn-success" type="button" id="addScheda" (click)="openPopUp(0, scheda_add_modify)">Aggiungi scheda</button>
+  <form>
+		<div class="form-group">
+			<div class="input-group">
+				<button class="btn btn-success" type="button" id="addScheda" (click)="openPopUp(0, scheda_add_modify)">Aggiungi scheda</button>
+        <select class="form-control select" (change)="onChangeId_atleta($event.target.value)" [value]='id_esercizio'>
+          <option value="-1"></option>
+          <option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+        </select>
+      </div>   
+		</div>
+	</form>
   <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
       <tr>

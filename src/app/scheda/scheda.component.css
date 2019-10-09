@@ -19,3 +19,13 @@
 .pagination{
     float: right;
 }
+
+.select{
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-left: 15px;
+}
+
+.input-group{
+    width: 50%;
+}

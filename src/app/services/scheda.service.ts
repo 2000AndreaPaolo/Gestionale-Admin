@@ -43,4 +43,9 @@ export class SchedaService {
     let headers  = new HttpHeaders({});
     return this.http.request('delete', `/admin/scheda`, { body: { headers: headers, id_scheda: id_scheda } });
   }
+
+  getScheda(id_atleta: number){
+    let headers = new HttpHeaders({});
+    return this.http.post('/admin/get/scheda/atleta', JSON.stringify(id_atleta), { headers: headers });
+  }
 }
