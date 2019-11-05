@@ -6,7 +6,11 @@
 			<div class="input-group">
 				<button class="btn btn-success" type="button" id="addNote" (click)="openPopUp(0, note_add_modify)">Aggiungi nota</button>
         <input type="date" class="form-control datepicker" [(ngModel)]="filtro_data" [ngModelOptions]="{standalone: true}" required (input)="onChangeData()" >
-			</div>   
+        <select class="form-control datepicker" (change)="onChangeIdAtletaFilter($event.target.value)" [value]='id_atleta'>
+          <option value=""></option>
+          <option *ngFor="let atleta of atleti" value="{{atleta.id_atleta}}">{{atleta.nome}} {{atleta.cognome}}</option>
+        </select>
+      </div>   
 		</div>
 	</form>
   <table class="table table-bordered table-striped">

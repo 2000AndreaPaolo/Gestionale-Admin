@@ -23,8 +23,5 @@
 .datepicker{
     margin-top:5px;
     margin-bottom:5px;
-}
-
-.input-group{
-    width: 50%;
+    margin-right: 5px;
 }
