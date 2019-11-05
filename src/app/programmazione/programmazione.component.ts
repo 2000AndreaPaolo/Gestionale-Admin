@@ -7,6 +7,7 @@ import { ProgrammazioneService } from '../services/programmazione.service';
 import { EserciziService } from '../services/esercizzi.service';
 import { Programmazione } from '../model_body';
 import { Programmazioni, Esercizzi, AuthUser } from '../model';
+import { getLocaleDateFormat, formatDate } from '@angular/common';
 @Component({
   selector: 'app-programmazione',
   templateUrl: './programmazione.component.html',
@@ -46,7 +47,7 @@ export class ProgrammazioneComponent implements OnInit {
     this.programmazioneService.getProgrammazioni().subscribe((data:Programmazioni[]) => {
       this.programmazioni=data;
     });
-    this.programmazioneService.loadProgrammazioni(this.id_programma);
+    this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
     this.eserciziService.getEsercizzi().subscribe((data:Esercizzi[]) => {
       this.esercizzi = data;
     });
@@ -63,11 +64,11 @@ export class ProgrammazioneComponent implements OnInit {
     this.programmazione.note = this.note;
     this.programmazioneService.addProgrammazione(this.programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+        this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Programmazione aggiunta con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+          this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programmazione non aggiunta', 'Errore');
 			  }
@@ -85,11 +86,11 @@ export class ProgrammazioneComponent implements OnInit {
     this.programmazione.note = this.note;
     this.programmazioneService.modifyProgrammazione(this.programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+        this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('Programmazione modificata con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+          this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('Programmazione non modificata', 'Errore');
 			}
@@ -99,11 +100,11 @@ export class ProgrammazioneComponent implements OnInit {
   deleteProgrammazione(id_programmazione:number){
     this.programmazioneService.deleteProgrammazione(id_programmazione).subscribe((data) => {
       if(data['code'] == 200){
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+        this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.success('programmazione eliminata con successo', 'Successo');
 			  }else{
-				this.programmazioneService.loadProgrammazioni(this.id_programma);
+          this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
 				this.modalService.dismissAll('Reason');
 				this.toastr.error('programmazione non eliminata', 'Errore');
 			}
@@ -160,5 +161,10 @@ export class ProgrammazioneComponent implements OnInit {
       }
       this.programmazioni = appoggio;
     });
+  }
+
+  resetDate(){
+    this.filtro_data = undefined;
+    this.programmazioneService.loadProgrammazioni(this.id_programma, this.filtro_data);
   }
 }

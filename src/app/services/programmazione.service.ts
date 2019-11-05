@@ -23,9 +23,22 @@ export class ProgrammazioneService {
     return this.programmazioni.asObservable();
   }
 
-  loadProgrammazioni(id_programma:number): void {
+  loadProgrammazioni(id_programma:number, filtro_data:Date): void {
     let headers = new HttpHeaders({});
-    this.http.post<Programmazioni[]>('/admin/get/programmazione', JSON.stringify(id_programma), { headers: headers }).subscribe(res => this.programmazioni.next(res));
+    this.http.post<Programmazioni[]>('/admin/get/programmazione', JSON.stringify(id_programma), { headers: headers }).subscribe((res) => {
+      if(filtro_data == undefined){
+        return this.programmazioni.next(res);
+      }else{
+        let appoggio = [];
+        for(let r of res){
+          if(r.data == filtro_data){
+            appoggio.push(r);
+          }
+          //console.log(r);
+        }
+        return this.programmazioni.next(appoggio);
+      }
+    });
   }
 
   addProgrammazione(programmazione: Programmazione){
