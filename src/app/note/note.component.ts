@@ -125,7 +125,6 @@ export class NoteComponent implements OnInit {
   }
 
   onChangeIdAtletaFilter(id_atleta:any){
-    console.log(id_atleta);
     this.note = [];
     this.noteService.getNota(this.authUser.id_coach).subscribe((data: Note[]) => {
       if(id_atleta == ''){
@@ -140,19 +139,5 @@ export class NoteComponent implements OnInit {
         return this.note = appoggio;
       }
     });
-    /*let appoggio = [];
-    this.pesi = [];
-    this.pesoService.getPeso(this.authUser.id_coach).subscribe((data: Peso[]) => {
-      if(id_atleta == ''){
-        this.pesi = data;
-      }else{
-        for(let dato of data){
-          if(dato.id_atleta == id_atleta){
-            appoggio.push(dato);
-          }
-        }
-        this.pesi = appoggio;
-      }
-    });*/
   }
 }
