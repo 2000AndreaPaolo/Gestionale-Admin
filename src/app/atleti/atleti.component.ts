@@ -145,28 +145,29 @@ export class AtletiComponent implements OnInit {
         this.nota.note = '';
         this.nota.data = null;
       }
+      this.plicometriaService.lastPlicometria(id_atleta).subscribe((data: Plicometria) => {
+        if(data[0] != null){
+          this.plicometria = data[0];
+        }else{
+          this.plicometria.pettorale = null;
+          this.plicometria.addome = null;
+          this.plicometria.gamba = null;
+          this.plicometria.data_rilevazione = null;
+          this.plicometria.percentuale = null;
+        }
+        this.pesoService.lastPeso(id_atleta).subscribe((data: Peso) => {
+          if(data[0] != null){
+            this.peso = data[0];
+          }else{
+            this.peso.peso = null;
+            this.peso.note = '';
+            this.peso.data = null;
+          }
+          console.log(this.plicometria);
+          this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
+        });
+      });
     });
-    this.plicometriaService.lastPlicometria(id_atleta).subscribe((data: Plicometria) => {
-      if(data[0] != null){
-        this.plicometria = data[0];
-      }else{
-        this.plicometria.pettorale = null;
-        this.plicometria.addome = null;
-        this.plicometria.gamba = null;
-        this.plicometria.data_rilevazione = null;
-        this.plicometria.percentuale = null;
-      }
-    });
-    this.pesoService.lastPeso(id_atleta).subscribe((data: Peso) => {
-      if(data[0] != null){
-        this.peso = data[0];
-      }else{
-        this.peso.peso = null;
-        this.peso.note = '';
-        this.peso.data = null;
-      }
-    });
-    this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
   }
 
   onChangeSpecializzazione(id_specializzazione:any){

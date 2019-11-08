@@ -85,7 +85,7 @@
         </h4>
     </div>
     <div class="modal-body">
-        <div *ngIf="nota.nota != ''; then nota_pieno">
+        <div *ngIf="nota.nota != '' && nota.data != null; then nota_pieno">
         </div>
         <ng-template #nota_pieno>
             <div class="separazione">
@@ -128,7 +128,7 @@
                 </table>
             </div>
         </ng-template>
-        <div *ngIf="plicometria.pettorale != ''; then plicometria_pieno">
+        <div *ngIf="plicometria.pettorale != null; then plicometria_pieno">
         </div>
         <ng-template #plicometria_pieno>
             <div class="separazione">
