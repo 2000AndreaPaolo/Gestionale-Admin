@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { API_URL } from './_shared/injectionTokens';
 import { environment } from '../environments/environment';
 import { ApiUrlInterceptor } from './_helpers/api-url.interceptor';
+import { ChartModule } from 'angular-highcharts';
 
 import { AtletiComponent } from './atleti/atleti.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -53,7 +54,8 @@ import { CestinoComponent } from './cestino/cestino.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartModule
   ],
   providers: [
     { provide: API_URL, useValue: environment.apiUrl },

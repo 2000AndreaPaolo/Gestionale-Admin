@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Chart } from 'angular-highcharts';
+/*import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;*/
+
 
 import { AtletiService } from '../services/atleti.service';
 import { PlicometriaService } from '../services/plicometria.service';
 import { PesoService } from '../services/peso.service';
 import { NoteService } from '../services/note.service';
-import { Atleti, Specializzazioni, AuthUser } from '../model';
+import { PrestazioneService } from '../services/prestazione.service';
+import { Atleti, Specializzazioni, Prestazioni, AuthUser } from '../model';
 import { Atleta, Plicometria, Nota, Peso } from '../model_body';
 @Component({
   selector: 'app-atleti',
@@ -18,6 +24,7 @@ export class AtletiComponent implements OnInit {
   authUser:AuthUser;
   atleti:Atleti[];
   specializzazioni:Specializzazioni[];
+  prestazioni: Prestazioni[];
   atleta:Atleta;
   id_atleta:number = null;
   id_specializzazione:number = null;
@@ -32,13 +39,19 @@ export class AtletiComponent implements OnInit {
   cognome:string = '';
   data_nascita:Date;
 
+  chart_squat:Chart;
+  chart_panca:Chart;
+  chart_stacco:Chart;
+  nome_atleta: string = '';
+
   constructor(
     private atletiService:AtletiService, 
     private modalService: NgbModal, 
     private toastr: ToastrService, 
     private plicometriaService: PlicometriaService,
     private noteService: NoteService,
-    private pesoService: PesoService
+    private pesoService: PesoService,
+    private prestazioneService: PrestazioneService
     ){}
 
   ngOnInit(){
@@ -53,6 +66,12 @@ export class AtletiComponent implements OnInit {
       this.specializzazioni = data;
     });
     this.atletiService.loadSpecializzazioni();
+
+    this.prestazioneService.loadPrestazione(this.authUser.id_coach);
+    this.prestazioneService.getPrestazione().subscribe((data: Prestazioni[]) => {
+      this.prestazioni = data;
+    });
+    this.prestazioneService.loadPrestazione(this.authUser.id_coach);
 
     this.plicometria = new Plicometria();
     this.nota = new Nota();
@@ -163,7 +182,6 @@ export class AtletiComponent implements OnInit {
             this.peso.note = '';
             this.peso.data = null;
           }
-          console.log(this.plicometria);
           this.modalService.open(conten, {ariaLabelledBy: 'modal-basic-titile'});
         });
       });
@@ -182,5 +200,85 @@ export class AtletiComponent implements OnInit {
       else
       this.toastr.error('Password non resettata', 'Errore');
     });
+  }
+
+  printProgressioni(id_atleta:any, content:any){
+    let vet_panca = [];
+    let vet_squat = [];
+    let vet_stacco = [];
+    for(let prestazione of this.prestazioni){
+      if(prestazione.id_atleta == id_atleta){
+        if(prestazione.id_esercizio == 1){
+          vet_squat.push(prestazione);
+        }
+        if(prestazione.id_esercizio == 2){
+          vet_panca.push(prestazione);
+        }
+        if(prestazione.id_esercizio == 3){
+          vet_stacco.push(prestazione);
+        }
+      }
+    }
+    let chart_squat = new Chart({
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Squat'
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Squat',
+        data: [],
+        type: undefined,
+      }]
+    });
+    for(let squat of vet_squat){
+      chart_squat.addPoint(squat.peso);
+    }
+    this.chart_squat = chart_squat;
+    let chart_panca = new Chart({
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Panca'
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Panca',
+        data: [],
+        type: undefined,
+      }]
+    });
+    for(let panca of vet_panca){
+      chart_panca.addPoint(panca.peso);
+    }
+    this.chart_panca = chart_panca;
+    let chart_stacco = new Chart({
+      chart: {
+        type: 'line'
+      },
+      title: {
+        text: 'Stacco da terra'
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: 'Stacco da terra',
+        data: [],
+        type: undefined,
+      }]
+    });
+    for(let stacco of vet_stacco){
+      chart_stacco.addPoint(stacco.peso);
+    }
+    this.chart_stacco = chart_stacco;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-titile'});
   }
 }

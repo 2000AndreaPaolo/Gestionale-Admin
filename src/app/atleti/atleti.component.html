@@ -21,6 +21,10 @@
                 <td class="center_object">{{atleta.descrizione}}</td>
                 <td class="center_object">{{atleta.username}}</td>
                 <td class="center_object">
+                    <div *ngIf="atleta.id_specializzazione == 1; then powerlift"></div>
+                    <ng-template #powerlift>
+                        <button #print class="fa fa-bar-chart btn btn-secondary" value="{{atleta.id_atleta}}" ngbTooltip="Stampa progressioni" (click)="printProgressioni(print.value, Chart_powerlifting)"></button>
+                    </ng-template>
                     <button #visualizza class="btn btn-info fa fa-eye"  value="{{atleta.id_atleta}}" ngbTooltip="Visualizza resoconto" (click)="view(visualizza.value, view_atleta)"></button>
                     <button #reset type="button" ngbTooltip="Reset Password" class="btn btn-warning fa fa-key" value="{{atleta.id_atleta}}" (click)="resetPassword(reset.value)"></button>
                     <button #modifica class="btn btn-primary fa fa-edit" (click)="openPopUp(modifica.value, atleti_add_modify)" value="{{atleta.id_atleta}}" ngbTooltip="Modifica atleta"></button>
@@ -158,5 +162,16 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Chiudi</button>
+    </div>
+</ng-template>
+
+<ng-template #Chart_powerlifting let-modal>
+    <div class="modal-body">
+        <div class="chart" [chart]="chart_squat"></div>
+        <div class="chart" [chart]="chart_panca"></div>
+        <div class="chart" [chart]="chart_stacco"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" style="display: inline;" (click)="modal.dismiss()">Annulla</button>
     </div>
 </ng-template>
