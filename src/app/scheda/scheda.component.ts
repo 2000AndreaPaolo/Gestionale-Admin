@@ -163,7 +163,7 @@ export class SchedaComponent implements OnInit {
 			this.progressioni = data;
 			this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
 				this.esercizzi = data;
-				pdfMake.createPdf(this.print_option()).open();
+				pdfMake.createPdf(this.print_option()).open({}, window);
 			});
 	  	});
 	  	this.progressioneService.loadProgressioni(id_scheda);
