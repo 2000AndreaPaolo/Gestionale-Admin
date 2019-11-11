@@ -29,9 +29,10 @@
         <td class="center_object">{{scheda.data_fine}}</td>
         <td class="center_object">{{scheda.nome_atleta}} {{scheda.cognome_atleta}}</td>
         <td class="center_object">
-				<button #modifica class="btn btn-info fa fa-eye" value="{{scheda.id_scheda}}" (click)="progressione(modifica.value)" ngbTooltip="Visualizza la progressione"></button>
-            <button #modifica class="btn btn-primary fa fa-edit" value="{{scheda.id_scheda}}" (click)="openPopUp(modifica.value, scheda_add_modify)" ngbTooltip="Modifica scehda"></button>
-            <button #elimina class="btn btn-danger fa fa-trash" value="{{scheda.id_scheda}}" (click)="deleteScheda(elimina.value)" ngbTooltip="Elimina scheda"></button>
+				  <button #modifica class="btn btn-info fa fa-eye" value="{{scheda.id_scheda}}" (click)="progressione(modifica.value)" ngbTooltip="Visualizza la progressione"></button>
+          <button #stampa class="btn btn-warning fa fa-print" value="{{scheda.id_scheda}}" (click)="print(stampa.value)" ngbTooltip="Stampa scheda"></button>
+          <button #modifica class="btn btn-primary fa fa-edit" value="{{scheda.id_scheda}}" (click)="openPopUp(modifica.value, scheda_add_modify)" ngbTooltip="Modifica scehda"></button>
+          <button #elimina class="btn btn-danger fa fa-trash" value="{{scheda.id_scheda}}" (click)="deleteScheda(elimina.value)" ngbTooltip="Elimina scheda"></button>
         </td>
       </tr>
     </tbody>

@@ -42,6 +42,7 @@ export class Progressioni{
     serie: number;
     ripetizioni: number;
     note: string;
+    nome_esercizio: string;
 }
 
 export class Plicometrie{

@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router";
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import { ProgressioneService } from '../services/progressione.service';
+import { EserciziService } from '../services/esercizzi.service';
 import { SchedaService } from '../services/scheda.service';
 import { AtletiService } from '../services/atleti.service';
-import { Schede, Atleti, AuthUser } from '../model';
+import { Progressioni, Esercizzi, Schede, Atleti, AuthUser } from '../model';
 import { Scheda } from '../model_body';
 @Component({
 	selector: 'app-scheda',
@@ -18,6 +23,8 @@ export class SchedaComponent implements OnInit {
 	schede: Schede[];
 	scheda: Scheda;
 	atleti: Atleti[];
+	esercizzi: Esercizzi[];
+	progressioni: Progressioni[];
 	page: number = 1;
 	id_scheda: number;
 	nome: string;
@@ -26,7 +33,15 @@ export class SchedaComponent implements OnInit {
 	durata: number;
 	id_atleta: number;
 
-	constructor(private schedaService: SchedaService, private atletiService: AtletiService, private modalService: NgbModal, private toastr: ToastrService, private router: Router) { }
+	constructor(
+		private schedaService: SchedaService, 
+		private atletiService: AtletiService, 
+		private modalService: NgbModal, 
+		private toastr: ToastrService, 
+		private router: Router,
+		private progressioneService: ProgressioneService,
+		private eserciziService: EserciziService
+	){}
 
 	ngOnInit() {
 		this.authUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -141,5 +156,56 @@ export class SchedaComponent implements OnInit {
 			});
 		}
 		
-	  }
+	}
+
+	print(id_scheda: number){
+		this.progressioneService.getProgressioni().subscribe((data: Progressioni[]) => {
+			this.progressioni = data;
+			this.eserciziService.getEsercizzi().subscribe((data: Esercizzi[]) => {
+				this.esercizzi = data;
+				pdfMake.createPdf(this.print_option()).open({}, window);
+			});
+	  	});
+	  	this.progressioneService.loadProgressioni(id_scheda);
+		this.eserciziService.loadEsercizzi(this.authUser.id_coach);
+	}
+	print_option(){
+		return {
+			content: [
+				{
+					table: {
+    					widths: ['*','*','*','*','*'],
+						body: [
+							[
+								{
+									text: 'Giorno'
+								},
+								{
+									text: 'Esercizio'
+								},
+								{
+									text: 'Serie'
+								},
+								{
+									text: 'Ripetizioni'
+								},
+								{
+									text: 'Note'
+								}
+							],
+							...this.progressioni.map(progressione => {
+							  return [
+								  progressione.giorno,
+								  progressione.nome_esercizio,
+								  progressione.serie,
+								  progressione.ripetizioni,
+								  progressione.note
+							  ];
+							})
+						]
+					}
+				}
+			]
+		};
+	}
 }
